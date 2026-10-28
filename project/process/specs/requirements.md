@@ -22,8 +22,8 @@ a report or a recorded manual check), and name that evidence in the **Evidence**
 | REQ-HW-04 | The LED matrix shows ✓ on success and ✗ on failure | Manual hardware test | Open | |
 | REQ-HW-05 | The speaker plays a high beep on success and a low beep on failure | Manual hardware test | Open | |
 | REQ-DOM-01 | `Lab`, `Lab_Utstyr`, `Student`, `Utlaan` are implemented as drawn in the class diagram | Class report | Verified | M1: every drawn element is implemented; class report 62.2 %, and each difference is explained in DEV-05, DEV-08, DEV-12, DEV-13 and DEV-14 |
-| REQ-DOM-02 | The `LEDIG`/`UTLÅNT` state machine is implemented as drawn | State report | Open | |
-| REQ-DOM-03 | The loan scenario follows the sequence diagram as closely as the model allows | Sequence report + deviation log | Open | |
+| REQ-DOM-02 | The `LEDIG`/`UTLÅNT` state machine is implemented as drawn | State report | Verified | M2: both states identical, both drawn arrows and the start state in the table; state report 22.2 %, each difference explained in DEV-09 and DEV-10; 5 state machine tests pass |
+| REQ-DOM-03 | The loan scenario follows the sequence diagram as closely as the model allows | Sequence report + deviation log | Verified | M2: every drawn message mapped to a class element, recorded in the drawn order; sequence report 12.5 %, explained in DEV-02 |
 | REQ-COM-01 | Every action sends one protocol line over USB serial at 115200 baud | C++ formatter test + serial monitor | Open | |
 | REQ-COM-02 | The dashboard connects with WebSerial (the user clicks Connect) and receives the lines | Manual browser test | Open | |
 | REQ-STO-01 | Every received event is appended to a CSV file chosen by the user | Manual test + JS CSV test | Open | |
@@ -46,12 +46,13 @@ Each one fills a gap in the models. Any of them can be changed by the team.
 | A-02 | After a tilt, the LEDs scroll the selection's short ID (for example `S2`, `U3`), and a `VELG` event is sent | The user must see which student or item is selected |
 | A-03 | Return (button A) returns the current student's loan of the current item; if there is none, the result is ✗ + low beep | `registrer_retur(utlaan)` needs a loan, and the device only knows the current selection |
 | A-04 | Each loan is one unit (`antall = 1`) | `laan_ut` has no count parameter, but `Utlaan` has `antall` |
-| A-05 | An item's state is `LEDIG` while `antall_tilgjengelig > 0`, otherwise `UTLÅNT` | The state machine is binary, but an item has several units |
+| A-05 | An item's state is `LEDIG` while `antall_tilgjengelig > 0`, otherwise `UTLÅNT`. The item fires `regUtlaan` when its last unit is lent and `regRetur` when the first one comes back | The state machine is binary, but an item has several units |
 | A-06 | High beep ≈ 1760 Hz for 150 ms; low beep ≈ 220 Hz for 300 ms | No pitch or length is specified |
 | A-07 | The CSV file is chosen once per browser session | The browser asks for file permission again in each session |
 | A-08 | `finn_tilgjengelig_utstyr(utstyr)` is true when `utstyr` is in this lab's `utstyrsliste` **and** `er_tilgjengelig()` | The name says "find" and the result is `Bool`; the diagram doesn't define the rule |
 | A-09 | `reduser_antall_tilgjengelig` never goes below 0, and `oek_antall_tilgjengelig` never goes above `antall_totalt` | A count can't be negative or larger than the number the lab owns |
 | A-10 | `laan_ut` returns `nullptr` when the item can't be lent, and `registrer_retur` ignores a loan that isn't in this lab | The diagram gives no failure case for either |
+| A-11 | `laan_ut` returns `nullptr` when the student is not in the lab's `student_liste` | The sequence diagram has `Lab` find the student (`finnStudent`) before the loan; the class diagram alone doesn't say so |
 
 ## Implementation decisions
 

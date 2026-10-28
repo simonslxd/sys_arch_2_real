@@ -51,6 +51,15 @@ std::vector<Test> lab_tests()
              CHECK(setup.student->get_laan().size() == 1);
              CHECK(!setup.multimeter->er_tilgjengelig());
          }},
+        {"Lab: laan_ut for a student who is not registered returns nullptr and changes nothing (A-11)",
+         [] {
+             LabWithOneItem setup;
+             Student stranger("S999", "Ukjent Student");
+             Utlaan* utlaan = setup.lab.laan_ut(stranger, *setup.multimeter);
+             CHECK(utlaan == nullptr);
+             CHECK(stranger.get_laan().empty());
+             CHECK(setup.multimeter->er_tilgjengelig());
+         }},
         {"Lab: laan_ut of an unavailable item returns nullptr and changes nothing",
          [] {
              LabWithOneItem setup;

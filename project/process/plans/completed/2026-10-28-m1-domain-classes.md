@@ -17,7 +17,7 @@ tests and FoM measurement #1. Spec: [m1-domain-classes.md](../specs/m1-domain-cl
 - [x] Update `requirements.md` (REQ-DOM-01 and REQ-VER-01 verified; A-08 to A-10; D-07, D-08) and
       `deviations.md`.
 - [x] Log FoM iteration 1.
-- [ ] The team reviews, commits and tags `iter-1`.
+- [x] The team reviews, commits and tags `iter-1`.
 
 ## How to reproduce (in WSL, from the repository root)
 

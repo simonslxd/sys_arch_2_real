@@ -16,3 +16,7 @@ target_compile_options(labutlaan PRIVATE -Wall -Wextra)
 
 add_executable(demo src/demo.cpp)
 target_link_libraries(demo PRIVATE labutlaan)
+
+# One executable per sequence diagram: scenarios/<scenario>.cpp for sequence-<scenario>.drawio.
+add_executable(scenario_laan_ut scenarios/laan_ut.cpp)
+target_link_libraries(scenario_laan_ut PRIVATE labutlaan)

@@ -1,0 +1,9 @@
+Iteration 2, measured 2026-10-28 at iter-1-1-g0a90029-dirty
+
+  class-report.md: 57.5 %
+  state-lab_utstyr-report.md: 22.2 %
+  sequence-laan_ut-report.md: 12.5 %
+  tests: 20 of 20 passed
+  requirements: 4 of 19 verified
+
+  A = 30.7 %   T = 100.0 %   R = 21.1 %   FoM = 50.6 %

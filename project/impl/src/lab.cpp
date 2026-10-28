@@ -17,10 +17,18 @@ void Lab::registrer_student(std::shared_ptr<Student> student)
 
 Utlaan* Lab::laan_ut(Student& student, Lab_Utstyr& utstyr)
 {
+    // Sequence diagram: find the item and check it is available (finnObjekt, erTilgjengelig) ...
     if (!finn_tilgjengelig_utstyr(utstyr))
     {
         return nullptr;
     }
+    // ... then find the student among the lab's students (finnStudent, assumption A-11) ...
+    auto is_this_student = [&student](const std::shared_ptr<Student>& s) { return s.get() == &student; };
+    if (std::none_of(student_liste_.begin(), student_liste_.end(), is_this_student))
+    {
+        return nullptr;
+    }
+    // ... then put the loan on the student (settStudentPaaLaan).
     utstyr.reduser_antall_tilgjengelig();
     utlaansliste_.push_back(std::make_unique<Utlaan>(student, utstyr, 1));   // one unit per loan (A-04)
     Utlaan& utlaan = *utlaansliste_.back();
