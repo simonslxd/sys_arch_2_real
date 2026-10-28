@@ -1,0 +1,9 @@
+Iteration 1, re-measured 2026-10-28 from the tagged code of iter-1 (backfilled; numbers match the logged row)
+
+  class-report.md: 62.2 %
+  state-lab_utstyr-report.md: 0.0 %
+  sequence-laan_ut-report.md: 0.0 %
+  tests: 14 of 14 passed
+  requirements: 2 of 19 verified
+
+  A = 20.7 %   T = 100.0 %   R = 10.5 %   FoM = 43.8 %

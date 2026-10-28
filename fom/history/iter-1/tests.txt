@@ -1,0 +1,15 @@
+PASS Lab_Utstyr: new item with units is available and keeps its name
+PASS Lab_Utstyr: item with zero units is not available
+PASS Lab_Utstyr: reduce to zero makes it unavailable, increase makes it available again
+PASS Lab_Utstyr: reduce never goes below zero (A-09)
+PASS Lab_Utstyr: increase never goes above the total (A-09)
+PASS Student: new student has no loans
+PASS Student: add and remove a loan
+PASS Utlaan: getters return the borrower, the item and the count
+PASS Lab: an item that is not in the lab is not found as available (A-08)
+PASS Lab: a registered item with units is found as available
+PASS Lab: laan_ut creates a loan of one unit and links it to the student
+PASS Lab: laan_ut of an unavailable item returns nullptr and changes nothing
+PASS Lab: registrer_retur makes the item available and removes the loan from the student
+PASS Lab: registrer_retur of a loan that belongs to another lab changes nothing
+RESULT: 14 of 14 tests passed

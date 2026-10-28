@@ -1,0 +1,4 @@
+The C++ tests do not build:
+
+CMake Error: The source directory "/mnt/c/Users/Bruker/Documents/git-repos/sys_arch_2_real/build/backfill/iter-0/tests/cpp" does not exist.
+Specify --help for usage, or press the help button on the CMake GUI.

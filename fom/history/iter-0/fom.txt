@@ -1,0 +1,9 @@
+Iteration 0, re-measured 2026-10-28 from the tagged code of iter-0 (backfilled; numbers match the logged row)
+
+  class-report.md: 0.0 %
+  state-lab_utstyr-report.md: 0.0 %
+  sequence-laan_ut-report.md: 0.0 %
+  tests: 0 of 0 passed
+  requirements: 0 of 0 verified
+
+  A = 0.0 %   T = 0.0 %   R = 0.0 %   FoM = 0.0 %
