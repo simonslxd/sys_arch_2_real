@@ -7,7 +7,7 @@
 FoM = (A + T + R) / 3, every part in percent:
 
   A  model alignment       mean "Alignment" of the class, state and sequence reports
-  T  test pass rate        passed unit tests / all unit tests
+  T  test pass rate        passed unit tests / all unit tests (C++ and JS)
   R  requirement coverage  requirements marked Verified / all requirements
 
 The same commit always gives the same A, T and R. Run it in WSL (decision D-01).
@@ -101,13 +101,10 @@ def model_alignment(summary):
     return sum(alignments) / len(alignments)
 
 
-def count_tests():
-    """(passed, total) over all unit tests: the C++ tests in tests/cpp/ (domain model and
-    firmware/station), built from scratch.
-
-    Their output goes to build/tests/output.txt. Tests that don't build, or that crash
-    before their summary line, count as 0 of 0.
-    """
+def cpp_tests():
+    """(passed, total, output) of the C++ tests in tests/cpp/ (domain model and
+    firmware/station), built from scratch. Tests that don't build, or that crash before
+    their summary line, count as 0 of 0."""
     if TEST_BUILD_DIR.exists():
         shutil.rmtree(TEST_BUILD_DIR)
     TEST_BUILD_DIR.mkdir(parents=True)
@@ -115,21 +112,40 @@ def count_tests():
                 ["cmake", "--build", str(TEST_BUILD_DIR)]):
         build = subprocess.run(cmd, capture_output=True, text=True)
         if build.returncode != 0:
-            TEST_OUTPUT.write_text("The C++ tests do not build:\n\n" + build.stdout + build.stderr,
-                                   encoding="utf-8")
-            return 0, 0
+            return 0, 0, "The C++ tests do not build:\n\n" + build.stdout + build.stderr
     run = subprocess.run([str(TEST_BUILD_DIR / "unit_tests")], capture_output=True, text=True)
-    TEST_OUTPUT.write_text(run.stdout + run.stderr, encoding="utf-8")
     match = re.search(r"RESULT: (\d+) of (\d+) tests passed", run.stdout)
     if not match:
-        return 0, 0
-    return int(match.group(1)), int(match.group(2))
+        return 0, 0, run.stdout + run.stderr
+    return int(match.group(1)), int(match.group(2)), run.stdout + run.stderr
+
+
+def js_tests():
+    """(passed, total, output) of the JS tests in tests/js/, run with Node's built-in test
+    runner. No tests, or no Node, count as 0 of 0."""
+    if not (REPO / "tests" / "js").is_dir():
+        return 0, 0, "No JS tests yet.\n"
+    try:
+        run = subprocess.run(["node", "--test", "tests/js/"], cwd=REPO, capture_output=True, text=True)
+    except FileNotFoundError:
+        return 0, 0, "Node is not installed.\n"
+    passed = re.search(r"^# pass (\d+)$", run.stdout, re.M)
+    total = re.search(r"^# tests (\d+)$", run.stdout, re.M)
+    if not (passed and total):
+        return 0, 0, run.stdout + run.stderr
+    return int(passed.group(1)), int(total.group(1)), run.stdout + run.stderr
 
 
 def test_pass_rate(summary):
-    """T: passed tests / all tests, in percent; 0 when there are no tests."""
-    passed, total = count_tests()
-    summary.append(f"  tests: {passed} of {total} passed")
+    """T: passed tests / all tests (C++ and JS), in percent; 0 when there are no tests.
+    The output of both goes to build/tests/output.txt."""
+    cpp_passed, cpp_total, cpp_output = cpp_tests()
+    js_passed, js_total, js_output = js_tests()
+    TEST_OUTPUT.write_text("━━ C++ tests (tests/cpp)\n" + cpp_output +
+                           "\n━━ JS tests (tests/js)\n" + js_output, encoding="utf-8")
+    passed, total = cpp_passed + js_passed, cpp_total + js_total
+    summary.append(f"  tests: {passed} of {total} passed "
+                   f"(C++ {cpp_passed}/{cpp_total}, JS {js_passed}/{js_total})")
     return 100.0 * passed / total if total else 0.0
 
 

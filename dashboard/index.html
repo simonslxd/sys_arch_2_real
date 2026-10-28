@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laboratorieutlån – micro:bit-stasjon</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Laboratorieutlån – micro:bit-stasjon</h1>
+    <p class="merknad">Studenter og utstyr er fiktive eksempeldata.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Tilkobling</h2>
+      <p id="status" class="status frakoblet">Frakoblet.</p>
+      <button id="koble-til" type="button">Koble til micro:bit</button>
+      <button id="koble-fra" type="button" disabled>Koble fra</button>
+    </section>
+
+    <section>
+      <h2>Valgt på stasjonen</h2>
+      <dl class="valg">
+        <dt>Student (<code>studentnummer</code>)</dt><dd id="valgt-student">–</dd>
+        <dt>Utstyr (<code>utstyr_navn</code>)</dt><dd id="valgt-utstyr">–</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Utstyrsstatus (<code>Lab_Utstyr</code>)</h2>
+      <table id="utstyrsstatus">
+        <thead><tr><th><code>utstyr_navn</code></th><th>Tilstand</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Hendelser (nyeste først)</h2>
+      <div class="rull">
+        <table id="hendelser">
+          <thead>
+            <tr><th>seq</th><th>Hendelse</th><th><code>studentnummer</code></th><th><code>utstyr_navn</code></th><th>Tilstand</th><th>Resultat</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="avviste" hidden>
+      <h2>Avviste linjer</h2>
+      <p>Linjer fra micro:bit som ikke følger protokollen (<code>spec/serial-protocol.md</code>).</p>
+      <ul></ul>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

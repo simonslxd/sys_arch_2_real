@@ -46,3 +46,15 @@ through the PC-tested `StationController`, and checks that every recorded line i
 | REQ-HW-04 ✓ / ✗ on LEDs | tester's observation: "it went well" | Pass (observed) |
 | REQ-HW-05 high / low beep | tester's observation: "it went well" | Pass (observed) |
 | REQ-COM-01 one line per action, 115200 baud | 2 × 13 lines, one per input, all valid protocol lines | Pass |
+
+## Dashboard check (M4), 2026-10-28
+
+1. Serve the dashboard (`dashboard/README.md`) and open http://localhost:8000 in Chrome or Edge.
+2. *Koble til micro:bit* → choose the micro:bit → the status turns green.
+3. Give a few inputs (B, tilt left, A, tilt right, B): each adds a row at the top of *Hendelser*, and *Valgt på
+   stasjonen* and *Utstyrsstatus* follow. *Avviste linjer* stays hidden.
+4. *Koble fra* → the status shows *Frakoblet.*
+
+| Requirement | Evidence | Result |
+|---|---|---|
+| REQ-COM-02 WebSerial connection, lines received | tester's report: "It works" | Pass (observed) |

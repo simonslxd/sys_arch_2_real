@@ -25,7 +25,7 @@ a report or a recorded manual check), and name that evidence in the **Evidence**
 | REQ-DOM-02 | The `LEDIG`/`UTLÅNT` state machine is implemented as drawn | State report | Verified | M2: both states identical, both drawn arrows and the start state in the table; state report 22.2 %, each difference explained in DEV-09 and DEV-10; 5 state machine tests pass |
 | REQ-DOM-03 | The loan scenario follows the sequence diagram as closely as the model allows | Sequence report + deviation log | Verified | M2: every drawn message mapped to a class element, recorded in the drawn order; sequence report 12.5 %, explained in DEV-02 |
 | REQ-COM-01 | Every action sends one protocol line over USB serial at 115200 baud | C++ formatter test + serial monitor | Verified | M3: 2 x 13 hardware lines, one per input; golden-lines test (13 lines) |
-| REQ-COM-02 | The dashboard connects with WebSerial (the user clicks Connect) and receives the lines | Manual browser test | Open | |
+| REQ-COM-02 | The dashboard connects with WebSerial (the user clicks Connect) and receives the lines | Manual browser test | Verified | M4: browser test with the micro:bit, tests/hardware/checklist.md (tester: "It works") |
 | REQ-STO-01 | Every received event is appended to a CSV file chosen by the user | Manual test + JS CSV test | Open | |
 | REQ-STO-02 | On start, the dashboard can open an existing CSV file and show its stored events | Manual test + JS test | Open | |
 | REQ-UI-01 | The dashboard shows a live event list, stored history and current state per item, in Norwegian | Manual test | Open | |
@@ -72,3 +72,5 @@ Each one fills a gap in the models. Any of them can be changed by the team.
 | D-10 | In the CODAL build, our sources (domain model, station, device) are compiled as C++20 (`firmware/cxx20.cmake`); CODAL itself stays C++11. `-Wno-register` silences the only warning, from CODAL's CMSIS header | The device runs the same C++20 code as the verified PC build (D-02) |
 | D-11 | The firmware polls the buttons and the accelerometer every 20 ms instead of listening on CODAL's message bus | On the board, queued bus events did not reach our handlers, while polling saw every press (3 diagnostic builds, [m3-firmware.md](m3-firmware.md)). Polling is also simpler and its logic (`InputDecoder`) is unit-tested |
 | D-12 | Hardware runs are checked with `tests/hardware/replay_log`, which replays the inputs the board received through the PC-tested station code | It verifies the board line by line even when the person's inputs differ from the planned sequence |
+| D-13 | JS tests use Node's built-in test runner (`node --test tests/js/`); `dashboard/package.json` only sets `"type": "module"` | No npm packages; the same ES modules run in the browser and in the tests |
+| D-14 | The dashboard is served with `python3 -m http.server` on `localhost:8000` | WebSerial needs `localhost` or https, and ES modules don't load from `file://`; Python is already part of the toolchain |

@@ -1,0 +1,178 @@
+<mxfile host="app.diagrams.net" agent="umlverify" version="24.7.17">
+  <diagram name="1 - Design (human)" id="design">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="design-0" />
+        <mxCell id="design-1" parent="design-0" />
+        <mxCell id="design-l0" value="Actor" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="design-1">
+          <mxGeometry x="120" y="40" width="40" height="494" as="geometry" />
+        </mxCell>
+        <mxCell id="design-l1" value="Lab" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="design-1">
+          <mxGeometry x="240" y="80" width="120" height="454" as="geometry" />
+        </mxCell>
+        <UserObject id="design-l2" label="UtlaansObjekter" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;fillColor=#f8cecc;swimlaneFillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="design-1">
+          <mxGeometry x="440" y="80" width="120" height="454" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <UserObject id="design-l3" label="Objekt" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;fillColor=#f8cecc;swimlaneFillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="design-1">
+          <mxGeometry x="640" y="80" width="120" height="454" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <UserObject id="design-l4" label="Studenter" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;fillColor=#f8cecc;swimlaneFillColor=#f8cecc;strokeColor=#b85450;strokeWidth=2;" vertex="1" parent="design-1">
+          <mxGeometry x="840" y="80" width="120" height="454" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <UserObject id="design-m0" label="Laan(Objekt, Student)" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.2429;exitPerimeter=0;entryX=0.5;entryY=0.1762;entryPerimeter=0;strokeColor=#b85450;strokeWidth=3;fontColor=#b85450;" edge="1" parent="design-1" source="design-l0" target="design-l1">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <UserObject id="design-m1" label="finnObjekt(Objekt)" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.2643;exitPerimeter=0;entryX=0.5;entryY=0.2643;entryPerimeter=0;strokeColor=#b85450;strokeWidth=3;fontColor=#b85450;" edge="1" parent="design-1" source="design-l1" target="design-l2">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="design-m2" value="Objekt" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;endSize=8;dashed=1;curved=0;rounded=0;exitX=0.5;exitY=0.3524;exitPerimeter=0;entryX=0.5;entryY=0.3524;entryPerimeter=0;" edge="1" parent="design-1" source="design-l2" target="design-l1">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <UserObject id="design-m3" label="erTilgjengelig()" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.4405;exitPerimeter=0;entryX=0.5;entryY=0.4405;entryPerimeter=0;strokeColor=#b85450;strokeWidth=3;fontColor=#b85450;" edge="1" parent="design-1" source="design-l1" target="design-l3">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="design-m4" value="Bool" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;endSize=8;dashed=1;curved=0;rounded=0;exitX=0.5;exitY=0.5286;exitPerimeter=0;entryX=0.5;entryY=0.5286;entryPerimeter=0;" edge="1" parent="design-1" source="design-l3" target="design-l1">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <UserObject id="design-m5" label="finnStudent(Student)" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.6167;exitPerimeter=0;entryX=0.5;entryY=0.6167;entryPerimeter=0;strokeColor=#b85450;strokeWidth=3;fontColor=#b85450;" edge="1" parent="design-1" source="design-l1" target="design-l4">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="design-m6" value="Student" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;endSize=8;dashed=1;curved=0;rounded=0;exitX=0.5;exitY=0.7048;exitPerimeter=0;entryX=0.5;entryY=0.7048;entryPerimeter=0;" edge="1" parent="design-1" source="design-l4" target="design-l1">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <UserObject id="design-m7" label="settStudentPaaLaan()" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.7709;exitPerimeter=0;entryX=0.5;entryY=0.7709;entryPerimeter=0;strokeColor=#b85450;strokeWidth=3;fontColor=#b85450;" edge="1" parent="design-1" source="design-l1" target="design-l3">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="design-m8" value="Laan" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;endSize=8;dashed=1;curved=0;rounded=0;exitX=0.5;exitY=0.8370;exitPerimeter=0;entryX=0.5;entryY=0.8370;entryPerimeter=0;" edge="1" parent="design-1" source="design-l3" target="design-l1">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="design-m9" value="Bool" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;endSize=8;dashed=1;curved=0;rounded=0;exitX=0.5;exitY=0.8590;exitPerimeter=0;entryX=0.5;entryY=0.8704;entryPerimeter=0;" edge="1" parent="design-1" source="design-l1" target="design-l0">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="design-legend" value="&lt;b&gt;DESIGN&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;drawn by a person · diagrams/input/sequence-laan_ut.drawio&lt;/font&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="design-1">
+          <mxGeometry x="1040.0" y="40" width="348" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="design-legend-0" value="Identical" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="design-legend">
+          <mxGeometry x="8" y="46" width="332" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="design-legend-1" value="Changed (0)" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="design-legend">
+          <mxGeometry x="8" y="72" width="332" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="design-legend-2" value="Missing from the implementation (8)" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="design-legend">
+          <mxGeometry x="8" y="98" width="332" height="22" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="2 - Implemented (AI)" id="implemented">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="implemented-0" />
+        <mxCell id="implemented-1" parent="implemented-0" />
+        <mxCell id="implemented-l0" value="Actor" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="implemented-1">
+          <mxGeometry x="120" y="40" width="40" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-l1" value="Lab" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="implemented-1">
+          <mxGeometry x="240" y="80" width="120" height="400" as="geometry" />
+        </mxCell>
+        <UserObject id="implemented-l2" label="Lab_Utstyr" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;fillColor=#d5e8d4;swimlaneFillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="implemented-1">
+          <mxGeometry x="1020" y="40" width="100" height="422" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-l3" label="Student" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;fillColor=#d5e8d4;swimlaneFillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="implemented-1">
+          <mxGeometry x="1180" y="40" width="100" height="422" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-m0" label="laan_ut()" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.2500;exitPerimeter=0;entryX=0.5;entryY=0.1750;entryPerimeter=0;strokeColor=#82b366;strokeWidth=3;fontColor=#82b366;" edge="1" parent="implemented-1" source="implemented-l0" target="implemented-l1">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-m1" label="finn_tilgjengelig_utstyr()" tooltip="NOT COUNTED&#10;A call the class makes to itself that the design does not draw.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.2750;exitPerimeter=0;entryX=0.5;entryY=0.3350;entryPerimeter=0;align=left;verticalAlign=middle;strokeColor=#999999;strokeWidth=3;fontColor=#999999;" edge="1" parent="implemented-1" source="implemented-l1" target="implemented-l1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="190" />
+              <mxPoint x="340" y="214" />
+            </Array>
+            <mxPoint x="8" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-m2" label="er_tilgjengelig()" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.4350;exitPerimeter=0;entryX=0.5;entryY=0.5071;entryPerimeter=0;strokeColor=#82b366;strokeWidth=3;fontColor=#82b366;" edge="1" parent="implemented-1" source="implemented-l1" target="implemented-l2">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-m3" label="reduser_antall_tilgjengelig()" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.5350;exitPerimeter=0;entryX=0.5;entryY=0.6019;entryPerimeter=0;strokeColor=#82b366;strokeWidth=3;fontColor=#82b366;" edge="1" parent="implemented-1" source="implemented-l1" target="implemented-l2">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-m4" label="handle()" tooltip="NOT COUNTED&#10;A call the class makes to itself that the design does not draw.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.6967;exitPerimeter=0;entryX=0.5;entryY=0.7536;entryPerimeter=0;align=left;verticalAlign=middle;strokeColor=#999999;strokeWidth=3;fontColor=#999999;" edge="1" parent="implemented-1" source="implemented-l2" target="implemented-l2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1110" y="334" />
+              <mxPoint x="1110" y="358" />
+            </Array>
+            <mxPoint x="8" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-m5" label="legg_til_laan()" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;curved=0;rounded=0;exitX=0.5;exitY=0.7950;exitPerimeter=0;entryX=0.5;entryY=0.8483;entryPerimeter=0;strokeColor=#82b366;strokeWidth=3;fontColor=#82b366;" edge="1" parent="implemented-1" source="implemented-l1" target="implemented-l3">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="implemented-legend" value="&lt;b&gt;IMPLEMENTED SCENARIO&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;built by AI · recorded from impl/scenarios/laan_ut.cpp&lt;/font&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="implemented-1">
+          <mxGeometry x="1360.0" y="40" width="326" height="158" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-legend-0" value="Identical" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="implemented-legend">
+          <mxGeometry x="8" y="46" width="310" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-legend-1" value="Changed (0)" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="implemented-legend">
+          <mxGeometry x="8" y="72" width="310" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-legend-2" value="Extra, not in the design (6)" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="implemented-legend">
+          <mxGeometry x="8" y="98" width="310" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-legend-3" value="Not counted (2)" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#f5f5f5;strokeColor=#999999;" vertex="1" parent="implemented-legend">
+          <mxGeometry x="8" y="124" width="310" height="22" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,4 @@
+{
+  "//": "Only tells Node that js/*.js are ES modules, so tests/js can import them. No dependencies.",
+  "type": "module"
+}
