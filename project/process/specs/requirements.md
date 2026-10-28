@@ -30,11 +30,11 @@ a report or a recorded manual check), and name that evidence in the **Evidence**
 | REQ-STO-02 | On start, the dashboard can open an existing CSV file and show its stored events | Manual test + JS test | Verified | M5: both browser runs reloaded the page and reopened the file; the rows came back as source "fil" (tester: "it worked"); round-trip test with the 13 golden lines |
 | REQ-UI-01 | The dashboard shows, in Norwegian, the loans and returns (live and stored), the current selection and the current state per item (changed by the team, 2026-10-28: the list shows only `LAAN_UT` and `RETUR`, with the protocol's event names only) | Manual test | Verified | M5: browser runs 1 and 2 (tester: "it worked") |
 | REQ-TST-01 | Unit tests for the domain (C++) and for the parser and CSV handling (JS) | Test runners | Verified | 34 C++ tests (domain + station) and 16 JS tests (parser, line buffer, CSV), all pass |
-| REQ-TST-02 | At least one benchmark | `benchmarks/` output | Open | |
+| REQ-TST-02 | At least one benchmark | `benchmarks/` output | Verified | M6: `benchmarks/lending_benchmark` (Release), ns per laan_ut + registrer_retur; logged in fom-log.csv `bench_ns` |
 | REQ-VER-01 | The verifier runs deterministically on the unchanged diagrams | `fom/measure_fom.py` | Verified | M1: two runs produced 8 byte-identical output files (3 reports, 5 `.mmd`) |
 | REQ-VER-02 | The FoM is measured at 3 or more iterations and logged | `fom/fom-log.csv` | Verified | Iterations 0, 1 and 2 logged with archived reports (`fom/PROGRESS.md`) |
 | REQ-PRO-01 | Each iteration is one commit + tag (`iter-N`), pushed to GitHub on approval | `git log`, `git tag` | Verified | Tags `iter-0` to `iter-4` on github.com/simonslxd/sys_arch_2_real, each pushed after the team's "commit and push" |
-| REQ-PRO-02 | Each module has one responsibility | Review against the module table in the architecture plan | Open | |
+| REQ-PRO-02 | Each module has one responsibility | Review against the module table in the architecture plan | Verified | M6: [srp-review.md](srp-review.md): no module with two unrelated responsibilities; 2 overstated header comments corrected |
 
 ## Assumptions
 
@@ -78,3 +78,4 @@ Each one fills a gap in the models. Any of them can be changed by the team.
 | D-14 | The dashboard is served with `dashboard/serve.py` (Python's web server plus `Cache-Control: no-store`) on `localhost:8000` | WebSerial needs `localhost` or https, and ES modules don't load from `file://`. With plain `python3 -m http.server`, Chrome kept old JS modules after a change, and the page stopped working (M5) |
 | D-15 | A CSV row is the receive time followed by the unchanged protocol line; reading a row uses the same `parseEventLine` as live lines. A file whose first line is not the header is refused | No CSV quoting is needed (protocol fields have no commas); one parser for both paths; the dashboard never appends to someone else's CSV file |
 | D-16 | The dashboard warns when `seq` jumps between two received lines (lost lines) | The protocol defines gaps as lost lines; two lines (seq 86, 87) were missing from the first CSV test and could not be explained afterwards |
+| D-17 | The benchmark times 10 000 loan + return pairs, 7 times, and reports the median, in a lab of 100 students and 100 items with the last of each (worst case for `laan_ut`'s searches); built as Release | A median resists short disturbances; the worst case shows the cost of the list searches. Still machine-dependent (65–116 ns seen on the same PC), so it is logged but not part of the FoM |

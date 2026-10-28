@@ -15,4 +15,4 @@ again after a reload. Spec: [m5-csv-storage.md](../specs/m5-csv-storage.md).
 - [x] `requirements.md`: REQ-STO-01, REQ-STO-02, REQ-UI-01 (reworded), REQ-TST-01, REQ-PRO-01 verified;
       A-14, A-15; D-14 updated, D-15, D-16. README, checklist, spec.
 - [x] Log FoM iteration 5.
-- [ ] The team reviews, commits and tags `iter-5`.
+- [x] The team reviews, commits and tags `iter-5`.

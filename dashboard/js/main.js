@@ -1,7 +1,9 @@
-// Wires the dashboard together. No logic of its own:
+// Wires the dashboard together and keeps the session's state (connected or not, the last seq):
 //   CSV file    -> stored loans and returns -> page
 //   serial line -> parsed event -> selection and item state on the page; a loan or return is
 //                  also written to the CSV file (with the time it arrived) and listed
+// The rules themselves live in the tested modules: what is stored (csv_format.isLogged), what a
+// line means (event_parser), and when lines are missing (event_parser.missingLines).
 import { isLogged, toCsvRow } from "./csv_format.js";
 import { CsvStore, isFileAccessSupported } from "./csv_store.js";
 import { missingLines, parseEventLine } from "./event_parser.js";

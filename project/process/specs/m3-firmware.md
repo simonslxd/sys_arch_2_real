@@ -25,7 +25,8 @@ built into the PC tests from the very same files.
 `firmware/build.sh` downloads CODAL once into `build/codal/` (samples v0.3.0, `codal-microbit-v2` v0.3.5,
 both pinned), copies `firmware/device/`, `firmware/station/` and `project/impl/` (without `demo.cpp`) into
 `build/codal/source/`, and builds `build/MICROBIT.hex`. CODAL compiles as C++11; `firmware/cxx20.cmake` compiles
-our files as C++20, like the verified PC build (D-10). The build has no warnings.
+our files as C++20, like the verified PC build (D-10). The build has no warnings since M6 (see the correction
+under Results).
 
 ## Input handling: why polling (D-11)
 
@@ -47,4 +48,8 @@ needs no event queue, no fibers and no "busy" flag, and lets the decision logic 
 - 34 of 34 unit tests pass (domain + station), including the 13 golden protocol lines.
 - Hardware: 2 recorded runs, each 13 lines; `replay_log` reproduced **13 of 13** lines of both runs
   ([tests/hardware/checklist.md](../../../tests/hardware/checklist.md)).
-- Firmware build: 0 warnings, 113 KB of 364 KB flash.
+- Firmware build: 113 KB of 364 KB flash. **Correction (M6):** this spec first said "0 warnings". The polling
+  `InputHandler` actually produced 2 `-Wnarrowing` warnings (`isPressed()` returns `int`, put into a `bool` in
+  braces). The warning count in M3 was taken before the build had finished, so it read an old log. Fixed in M6
+  (`isPressed() != 0`, same behaviour), and the build now has 0 warnings. The firmware tested on the hardware in
+  M3 was the build with these 2 warnings.

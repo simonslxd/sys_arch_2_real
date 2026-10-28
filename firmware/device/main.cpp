@@ -1,6 +1,7 @@
 // The micro:bit lab-lending station.
 //
-// This file only wires the modules together, in one loop:
+// This file wires the modules together, in one loop, and picks the feedback for each Command
+// (show_feedback):
 //   InputHandler       waits for a button press or tilt -> Command
 //   StationController  runs the Command on the domain model (project/impl) -> StationEvent
 //   event_writer       StationEvent -> one line on the USB serial port (spec/serial-protocol.md)
