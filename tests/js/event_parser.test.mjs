@@ -3,7 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-import { parseEventLine } from "../../dashboard/js/event_parser.js";
+import { missingLines, parseEventLine } from "../../dashboard/js/event_parser.js";
 
 // The protocol lines of spec/serial-protocol-examples.txt: every line that is not a comment.
 const goldenLines = readFileSync(new URL("../../spec/serial-protocol-examples.txt", import.meta.url), "utf8")
@@ -48,4 +48,14 @@ test("Parser: rejects lines that break the protocol, saying why", () => {
   for (const [line, reason] of broken) {
     assert.throws(() => parseEventLine(line), reason, line);
   }
+});
+
+test("Missing lines: a jump in seq counts the lines in between", () => {
+  assert.equal(missingLines(85, 86), 0);
+  assert.equal(missingLines(85, 88), 2);
+});
+
+test("Missing lines: nothing is missing before the first line or after a restart (seq 0)", () => {
+  assert.equal(missingLines(null, 63), 0);
+  assert.equal(missingLines(85, 0), 0);
 });

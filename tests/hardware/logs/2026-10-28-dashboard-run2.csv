@@ -1,0 +1,5 @@
+mottatt,seq,event,studentnummer,utstyr_navn,state,result
+2026-10-28T12:00:33.466Z,2,LAAN_UT,S001,Oscilloskop,UTLÅNT,OK
+2026-10-28T12:00:37.521Z,4,RETUR,S002,Oscilloskop,UTLÅNT,FEIL
+2026-10-28T12:00:40.725Z,6,LAAN_UT,S002,Loddestasjon,LEDIG,OK
+2026-10-28T12:00:41.837Z,7,RETUR,S002,Loddestasjon,LEDIG,OK

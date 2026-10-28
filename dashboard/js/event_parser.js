@@ -38,3 +38,13 @@ export function parseEventLine(line) {
   }
   return { seq: Number(seqText), event, studentnummer, utstyr_navn, state, result };
 }
+
+// How many lines are missing between two received lines: seq counts every line the micro:bit
+// sends, so a jump means lost lines. 0 when nothing is missing, when this is the first line
+// (previousSeq is null), or when the micro:bit restarted (seq 0).
+export function missingLines(previousSeq, seq) {
+  if (previousSeq === null || seq === 0 || seq <= previousSeq) {
+    return 0;
+  }
+  return seq - previousSeq - 1;
+}

@@ -1,0 +1,9 @@
+Iteration 5, measured 2026-10-28 at iter-4-dirty
+
+  class-report.md: 57.5 %
+  state-lab_utstyr-report.md: 22.2 %
+  sequence-laan_ut-report.md: 12.5 %
+  tests: 50 of 50 passed (C++ 34/34, JS 16/16)
+  requirements: 17 of 19 verified
+
+  A = 30.7 %   T = 100.0 %   R = 89.5 %   FoM = 73.4 %

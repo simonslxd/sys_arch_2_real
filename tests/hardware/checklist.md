@@ -58,3 +58,24 @@ through the PC-tested `StationController`, and checks that every recorded line i
 | Requirement | Evidence | Result |
 |---|---|---|
 | REQ-COM-02 WebSerial connection, lines received | tester's report: "It works" | Pass (observed) |
+
+## CSV storage check (M5), 2026-10-28
+
+1. Serve the dashboard (`python3 dashboard/serve.py`), open http://localhost:8000, choose **Ny CSV-fil**.
+2. Connect, give B, tilt left, A, tilt right, B, A; disconnect.
+3. Reload the page (F5), choose **Åpne CSV-fil** with the same file: the loans and returns come back (source *fil*).
+4. Check the file: `parseCsv` must read every line, and it must hold only `LAAN_UT` and `RETUR`.
+
+| Run | File | Rows | Rejected | Notes |
+|---|---|--:|--:|---|
+| 1 | [logs/2026-10-28-dashboard-run1.csv](logs/2026-10-28-dashboard-run1.csv) | 24 | 0 | Before the team decided to store only loans and returns, so it also holds `VELG`. Includes the first successful `RETUR` on hardware (seq 68). **seq 86 and 87 are missing** (between 11:51:07 and 11:51:13); whether the dashboard was connected then is unknown |
+| 2 | [logs/2026-10-28-dashboard-run2.csv](logs/2026-10-28-dashboard-run2.csv) | 4 | 0 | Exactly the 4 loans/returns given (B, A, B, A), with the expected results and states; the gaps in seq (3, 5) are the unlogged tilts. Reload and reopen worked |
+
+The missing lines of run 1 are not explained. Since run 2, the dashboard warns under *Avviste og manglende linjer*
+when `seq` jumps while connected (D-16). No warning was reported in run 2.
+
+| Requirement | Evidence | Result |
+|---|---|---|
+| REQ-STO-01 loans and returns stored | run 2 file | Pass |
+| REQ-STO-02 history shown after reload | runs 1 and 2 (tester: "it worked") | Pass (observed) |
+| REQ-UI-01 Norwegian dashboard: list, selection, item states | runs 1 and 2 (tester: "it worked") | Pass (observed) |

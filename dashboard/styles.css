@@ -49,3 +49,5 @@ th { position: sticky; top: 0; background: var(--flate); }
 .ledig, .ok { color: var(--ledig); font-weight: 600; }
 .utlaant { color: var(--utlaant); font-weight: 600; }
 .feil { color: var(--feil); font-weight: 600; }
+
+.fra-fil td { color: #59636e; }

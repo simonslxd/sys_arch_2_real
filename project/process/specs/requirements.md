@@ -26,14 +26,14 @@ a report or a recorded manual check), and name that evidence in the **Evidence**
 | REQ-DOM-03 | The loan scenario follows the sequence diagram as closely as the model allows | Sequence report + deviation log | Verified | M2: every drawn message mapped to a class element, recorded in the drawn order; sequence report 12.5 %, explained in DEV-02 |
 | REQ-COM-01 | Every action sends one protocol line over USB serial at 115200 baud | C++ formatter test + serial monitor | Verified | M3: 2 x 13 hardware lines, one per input; golden-lines test (13 lines) |
 | REQ-COM-02 | The dashboard connects with WebSerial (the user clicks Connect) and receives the lines | Manual browser test | Verified | M4: browser test with the micro:bit, tests/hardware/checklist.md (tester: "It works") |
-| REQ-STO-01 | Every received event is appended to a CSV file chosen by the user | Manual test + JS CSV test | Open | |
-| REQ-STO-02 | On start, the dashboard can open an existing CSV file and show its stored events | Manual test + JS test | Open | |
-| REQ-UI-01 | The dashboard shows a live event list, stored history and current state per item, in Norwegian | Manual test | Open | |
-| REQ-TST-01 | Unit tests for the domain (C++) and for the parser and CSV handling (JS) | Test runners | Open | |
+| REQ-STO-01 | Every received loan and return (`LAAN_UT`, `RETUR`; both OK and FEIL) is appended to a CSV file chosen by the user, with the time it was received. `START` and `VELG` are not stored (changed by the team, 2026-10-28; was: every received event) | Manual test + JS CSV test | Verified | M5: [dashboard-run2.csv](../../../tests/hardware/logs/2026-10-28-dashboard-run2.csv) holds exactly the 4 loans/returns given, 0 rejected, no other events; 7 CSV tests |
+| REQ-STO-02 | On start, the dashboard can open an existing CSV file and show its stored events | Manual test + JS test | Verified | M5: both browser runs reloaded the page and reopened the file; the rows came back as source "fil" (tester: "it worked"); round-trip test with the 13 golden lines |
+| REQ-UI-01 | The dashboard shows, in Norwegian, the loans and returns (live and stored), the current selection and the current state per item (changed by the team, 2026-10-28: the list shows only `LAAN_UT` and `RETUR`, with the protocol's event names only) | Manual test | Verified | M5: browser runs 1 and 2 (tester: "it worked") |
+| REQ-TST-01 | Unit tests for the domain (C++) and for the parser and CSV handling (JS) | Test runners | Verified | 34 C++ tests (domain + station) and 16 JS tests (parser, line buffer, CSV), all pass |
 | REQ-TST-02 | At least one benchmark | `benchmarks/` output | Open | |
 | REQ-VER-01 | The verifier runs deterministically on the unchanged diagrams | `fom/measure_fom.py` | Verified | M1: two runs produced 8 byte-identical output files (3 reports, 5 `.mmd`) |
 | REQ-VER-02 | The FoM is measured at 3 or more iterations and logged | `fom/fom-log.csv` | Verified | Iterations 0, 1 and 2 logged with archived reports (`fom/PROGRESS.md`) |
-| REQ-PRO-01 | Each iteration is one commit + tag (`iter-N`), pushed to GitHub on approval | `git log`, `git tag` | Open | |
+| REQ-PRO-01 | Each iteration is one commit + tag (`iter-N`), pushed to GitHub on approval | `git log`, `git tag` | Verified | Tags `iter-0` to `iter-4` on github.com/simonslxd/sys_arch_2_real, each pushed after the team's "commit and push" |
 | REQ-PRO-02 | Each module has one responsibility | Review against the module table in the architecture plan | Open | |
 
 ## Assumptions
@@ -55,6 +55,8 @@ Each one fills a gap in the models. Any of them can be changed by the team.
 | A-11 | `laan_ut` returns `nullptr` when the student is not in the lab's `student_liste` | The sequence diagram has `Lab` find the student (`finnStudent`) before the loan; the class diagram alone doesn't say so |
 | A-12 | While the station shows a result (≈ 0.2–2 s), the inputs are not read; a press given entirely within that time is missed | The station handles one input at a time, and the user needs to see each result |
 | A-13 | A button counts when it is released. A tilt counts beyond ±500 mg (≈ 30°) on the x axis, once; the board must come back within ±300 mg (flat) before the next tilt, and must be flat once after start-up | No thresholds are specified; one tilt must not select several times |
+| A-14 | *Koble til micro:bit* only works after a CSV file is chosen, and the file can only be changed while disconnected | Every loan and return received can then be stored (REQ-STO-01) |
+| A-15 | The time in the CSV file is when the dashboard received the line, from the PC's clock (ISO 8601, UTC) | The micro:bit has no clock |
 
 ## Implementation decisions
 
@@ -73,4 +75,6 @@ Each one fills a gap in the models. Any of them can be changed by the team.
 | D-11 | The firmware polls the buttons and the accelerometer every 20 ms instead of listening on CODAL's message bus | On the board, queued bus events did not reach our handlers, while polling saw every press (3 diagnostic builds, [m3-firmware.md](m3-firmware.md)). Polling is also simpler and its logic (`InputDecoder`) is unit-tested |
 | D-12 | Hardware runs are checked with `tests/hardware/replay_log`, which replays the inputs the board received through the PC-tested station code | It verifies the board line by line even when the person's inputs differ from the planned sequence |
 | D-13 | JS tests use Node's built-in test runner (`node --test tests/js/`); `dashboard/package.json` only sets `"type": "module"` | No npm packages; the same ES modules run in the browser and in the tests |
-| D-14 | The dashboard is served with `python3 -m http.server` on `localhost:8000` | WebSerial needs `localhost` or https, and ES modules don't load from `file://`; Python is already part of the toolchain |
+| D-14 | The dashboard is served with `dashboard/serve.py` (Python's web server plus `Cache-Control: no-store`) on `localhost:8000` | WebSerial needs `localhost` or https, and ES modules don't load from `file://`. With plain `python3 -m http.server`, Chrome kept old JS modules after a change, and the page stopped working (M5) |
+| D-15 | A CSV row is the receive time followed by the unchanged protocol line; reading a row uses the same `parseEventLine` as live lines. A file whose first line is not the header is refused | No CSV quoting is needed (protocol fields have no commas); one parser for both paths; the dashboard never appends to someone else's CSV file |
+| D-16 | The dashboard warns when `seq` jumps between two received lines (lost lines) | The protocol defines gaps as lost lines; two lines (seq 86, 87) were missing from the first CSV test and could not be explained afterwards |
