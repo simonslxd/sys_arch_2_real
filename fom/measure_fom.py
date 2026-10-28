@@ -21,6 +21,7 @@ counts as 0 %.
 """
 import argparse
 import csv
+import os
 import re
 import shutil
 import subprocess
@@ -31,6 +32,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 PROJECT = REPO / "project"
 VERIFY_DIR = REPO / "build" / "verify"
+TEST_BUILD_DIR = REPO / "build" / "tests"
 FOM_LOG = REPO / "fom" / "fom-log.csv"
 REQUIREMENTS = PROJECT / "process" / "specs" / "requirements.md"
 
@@ -57,9 +59,21 @@ def prepare_verify_project():
     shutil.copytree(PROJECT / "impl", VERIFY_DIR / "impl")
 
 
+def compiler_builtin_headers():
+    """The folder with the compiler's own headers (stddef.h, ...), e.g.
+    /usr/lib/gcc/x86_64-linux-gnu/14/include."""
+    run = subprocess.run(["c++", "-print-file-name=include"], capture_output=True, text=True)
+    return run.stdout.strip()
+
+
 def run_verifier():
-    """Run tools/verify.py on build/verify/ and show its output."""
-    subprocess.run([sys.executable, str(REPO / "tools" / "verify.py"), str(VERIFY_DIR)])
+    """Run tools/verify.py on build/verify/ and show its output.
+
+    The pip libclang wheel lacks clang's built-in headers, so on Linux it stops at
+    "'stddef.h' file not found". CPATH lends it GCC's copies (decision D-07).
+    """
+    env = dict(os.environ, CPATH=compiler_builtin_headers())
+    subprocess.run([sys.executable, str(REPO / "tools" / "verify.py"), str(VERIFY_DIR)], env=env)
 
 
 def report_alignment(report_name):
@@ -80,8 +94,23 @@ def model_alignment():
 
 
 def count_tests():
-    """(passed, total) over all unit tests. There are no tests yet in milestone 0."""
-    return 0, 0
+    """(passed, total) over all unit tests: the C++ tests in tests/cpp/, built from scratch.
+
+    Tests that don't build, or that crash before their summary line, count as 0 of 0.
+    """
+    if TEST_BUILD_DIR.exists():
+        shutil.rmtree(TEST_BUILD_DIR)
+    for cmd in (["cmake", "-S", str(REPO / "tests" / "cpp"), "-B", str(TEST_BUILD_DIR)],
+                ["cmake", "--build", str(TEST_BUILD_DIR)]):
+        if subprocess.run(cmd, capture_output=True, text=True).returncode != 0:
+            print("  the C++ tests do not build")
+            return 0, 0
+    run = subprocess.run([str(TEST_BUILD_DIR / "domain_tests")], capture_output=True, text=True)
+    match = re.search(r"RESULT: (\d+) of (\d+) tests passed", run.stdout)
+    if not match:
+        print("  the C++ tests stopped before their summary line")
+        return 0, 0
+    return int(match.group(1)), int(match.group(2))
 
 
 def test_pass_rate():

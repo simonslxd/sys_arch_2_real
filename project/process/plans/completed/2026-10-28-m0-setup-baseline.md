@@ -18,7 +18,7 @@ exists. The architecture and the milestone list were approved on 2026-10-28.
       diagram.
 - [x] Write `fom/measure_fom.py`.
 - [x] Measure and log the baseline (iteration 0) in `fom/fom-log.csv`.
-- [ ] The team reviews and commits the M0 files, then pushes the commit and the `iter-0` tag.
+- [x] The team reviews and commits the M0 files, then pushes the commit and the `iter-0` tag.
 
 ## How to reproduce (in WSL, from the repository root)
 

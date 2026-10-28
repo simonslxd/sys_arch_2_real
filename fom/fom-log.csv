@@ -1,2 +1,3 @@
 iteration,date,commit,A,T,R,FoM,bench_ns
 0,2026-10-28,iter-0-dirty,0.0,0.0,0.0,0.0,-
+1,2026-10-28,iter-0-1-ge57db52-dirty,20.7,100.0,10.5,43.8,-
