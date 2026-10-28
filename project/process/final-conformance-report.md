@@ -44,6 +44,21 @@ and re-measuring the tagged code of iterations 0 and 1 reproduced their logged n
 + return, lab of 100 students and 100 items) varied between 65 and 116 ns on the same PC, so it is logged but kept
 out of the FoM.
 
+### Benchmark across versions
+
+The benchmark program only exists since iteration 6, so `fom/benchmark_versions.py` builds it against each tagged
+iteration's `project/impl/` and measures all versions in one session, alternating between them (5 rounds).
+Numbers: [fom/benchmark-versions.csv](../../fom/benchmark-versions.csv).
+
+![Time per loan + return by iteration](../../fom/benchmark-versions.svg)
+
+- The only real change is **iter-1 → iter-2**. There, `laan_ut` started looking up the student (A-11, from the
+  sequence diagram's `finnStudent`), and `Lab_Utstyr` got its state machine. On the 100 × 100 lab the median went
+  from 54 to about 66–72 ns; on the 3 × 3 lab from 21 to about 23–29 ns.
+- iter-3 to iter-6 run exactly the same domain code (checked with `git diff`), so the differences between them,
+  and the single slow runs (up to 114 ns), are measurement noise. That's also why the 87 ns in the FoM log for
+  iteration 6, measured in another session, differs from the 66 ns median here.
+
 **What limits the FoM is A (30.7 %), and that comes from the diagrams, not the code** (section 4). Every drawn
 element is implemented. Section 5 lists the draw.io changes that would remove most of the differences.
 
