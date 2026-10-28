@@ -102,7 +102,8 @@ def model_alignment(summary):
 
 
 def count_tests():
-    """(passed, total) over all unit tests: the C++ tests in tests/cpp/, built from scratch.
+    """(passed, total) over all unit tests: the C++ tests in tests/cpp/ (domain model and
+    firmware/station), built from scratch.
 
     Their output goes to build/tests/output.txt. Tests that don't build, or that crash
     before their summary line, count as 0 of 0.
@@ -117,7 +118,7 @@ def count_tests():
             TEST_OUTPUT.write_text("The C++ tests do not build:\n\n" + build.stdout + build.stderr,
                                    encoding="utf-8")
             return 0, 0
-    run = subprocess.run([str(TEST_BUILD_DIR / "domain_tests")], capture_output=True, text=True)
+    run = subprocess.run([str(TEST_BUILD_DIR / "unit_tests")], capture_output=True, text=True)
     TEST_OUTPUT.write_text(run.stdout + run.stderr, encoding="utf-8")
     match = re.search(r"RESULT: (\d+) of (\d+) tests passed", run.stdout)
     if not match:

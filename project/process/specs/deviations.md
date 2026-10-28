@@ -34,5 +34,7 @@ such change gets its own commit, so its effect on the FoM can be traced.
 
 | DEV-15 | — (not drawn) | `Lab_Utstyr::get_state()` is added, so tests, the firmware (M3) and the dashboard can see the state | **M2 result:** 1 Extra method in the class report | Without it, the state machine could not be tested, nor its state sent over serial. A diagram fix (adding it to the class box) is a candidate for a later iteration | Accepted |
 
+| DEV-16 | `Student.studentnummer`, `Lab_Utstyr.antall_tilgjengelig` | The class diagram has no getters for them, but the station and the dashboard need the student number and would like the count | None: no getters were added to the model | The station keeps each student's number next to the student (`StationController::KnownStudent`). The protocol sends the item's state instead of its count. A diagram change (getters) is a candidate for a later iteration | Accepted |
+
 The verifier's reading of each diagram is in `build/verify/diagrams/output/*-design.mmd`, which
 `fom/measure_fom.py` regenerates on every run.

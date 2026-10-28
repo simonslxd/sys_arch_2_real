@@ -16,15 +16,15 @@ a report or a recorded manual check), and name that evidence in the **Evidence**
 
 | ID | Requirement | Verified by | Status | Evidence |
 |---|---|---|---|---|
-| REQ-HW-01 | Right button (B) borrows the current item for the current student | Manual hardware test + controller unit test | Open | |
-| REQ-HW-02 | Left button (A) returns the current student's loan of the current item | Manual hardware test + controller unit test | Open | |
-| REQ-HW-03 | Tilt left selects the next student; tilt right selects the next item (wrap-around) | Manual hardware test + controller unit test | Open | |
-| REQ-HW-04 | The LED matrix shows ✓ on success and ✗ on failure | Manual hardware test | Open | |
-| REQ-HW-05 | The speaker plays a high beep on success and a low beep on failure | Manual hardware test | Open | |
+| REQ-HW-01 | Right button (B) borrows the current item for the current student | Manual hardware test + controller unit test | Verified | M3: tests/hardware/checklist.md; run logs 1+2; replay 13/13 both runs; 2 unit tests |
+| REQ-HW-02 | Left button (A) returns the current student's loan of the current item | Manual hardware test + controller unit test | Verified | M3: tests/hardware/checklist.md; RETUR lines in both runs (all FEIL: no matching loan); successful return by unit tests + replay |
+| REQ-HW-03 | Tilt left selects the next student; tilt right selects the next item (wrap-around) | Manual hardware test + controller unit test | Verified | M3: tests/hardware/checklist.md; run 1: students and items both wrap around; 6 InputDecoder tests |
+| REQ-HW-04 | The LED matrix shows ✓ on success and ✗ on failure | Manual hardware test | Verified | M3: tests/hardware/checklist.md; observed by the tester ("it went well") |
+| REQ-HW-05 | The speaker plays a high beep on success and a low beep on failure | Manual hardware test | Verified | M3: tests/hardware/checklist.md; observed by the tester ("it went well") |
 | REQ-DOM-01 | `Lab`, `Lab_Utstyr`, `Student`, `Utlaan` are implemented as drawn in the class diagram | Class report | Verified | M1: every drawn element is implemented; class report 62.2 %, and each difference is explained in DEV-05, DEV-08, DEV-12, DEV-13 and DEV-14 |
 | REQ-DOM-02 | The `LEDIG`/`UTLÅNT` state machine is implemented as drawn | State report | Verified | M2: both states identical, both drawn arrows and the start state in the table; state report 22.2 %, each difference explained in DEV-09 and DEV-10; 5 state machine tests pass |
 | REQ-DOM-03 | The loan scenario follows the sequence diagram as closely as the model allows | Sequence report + deviation log | Verified | M2: every drawn message mapped to a class element, recorded in the drawn order; sequence report 12.5 %, explained in DEV-02 |
-| REQ-COM-01 | Every action sends one protocol line over USB serial at 115200 baud | C++ formatter test + serial monitor | Open | |
+| REQ-COM-01 | Every action sends one protocol line over USB serial at 115200 baud | C++ formatter test + serial monitor | Verified | M3: 2 x 13 hardware lines, one per input; golden-lines test (13 lines) |
 | REQ-COM-02 | The dashboard connects with WebSerial (the user clicks Connect) and receives the lines | Manual browser test | Open | |
 | REQ-STO-01 | Every received event is appended to a CSV file chosen by the user | Manual test + JS CSV test | Open | |
 | REQ-STO-02 | On start, the dashboard can open an existing CSV file and show its stored events | Manual test + JS test | Open | |
@@ -32,7 +32,7 @@ a report or a recorded manual check), and name that evidence in the **Evidence**
 | REQ-TST-01 | Unit tests for the domain (C++) and for the parser and CSV handling (JS) | Test runners | Open | |
 | REQ-TST-02 | At least one benchmark | `benchmarks/` output | Open | |
 | REQ-VER-01 | The verifier runs deterministically on the unchanged diagrams | `fom/measure_fom.py` | Verified | M1: two runs produced 8 byte-identical output files (3 reports, 5 `.mmd`) |
-| REQ-VER-02 | The FoM is measured at 3 or more iterations and logged | `fom/fom-log.csv` | Open | |
+| REQ-VER-02 | The FoM is measured at 3 or more iterations and logged | `fom/fom-log.csv` | Verified | Iterations 0, 1 and 2 logged with archived reports (`fom/PROGRESS.md`) |
 | REQ-PRO-01 | Each iteration is one commit + tag (`iter-N`), pushed to GitHub on approval | `git log`, `git tag` | Open | |
 | REQ-PRO-02 | Each module has one responsibility | Review against the module table in the architecture plan | Open | |
 
@@ -53,6 +53,8 @@ Each one fills a gap in the models. Any of them can be changed by the team.
 | A-09 | `reduser_antall_tilgjengelig` never goes below 0, and `oek_antall_tilgjengelig` never goes above `antall_totalt` | A count can't be negative or larger than the number the lab owns |
 | A-10 | `laan_ut` returns `nullptr` when the item can't be lent, and `registrer_retur` ignores a loan that isn't in this lab | The diagram gives no failure case for either |
 | A-11 | `laan_ut` returns `nullptr` when the student is not in the lab's `student_liste` | The sequence diagram has `Lab` find the student (`finnStudent`) before the loan; the class diagram alone doesn't say so |
+| A-12 | While the station shows a result (≈ 0.2–2 s), the inputs are not read; a press given entirely within that time is missed | The station handles one input at a time, and the user needs to see each result |
+| A-13 | A button counts when it is released. A tilt counts beyond ±500 mg (≈ 30°) on the x axis, once; the board must come back within ±300 mg (flat) before the next tilt, and must be flat once after start-up | No thresholds are specified; one tilt must not select several times |
 
 ## Implementation decisions
 
@@ -67,3 +69,6 @@ Each one fills a gap in the models. Any of them can be changed by the team.
 | D-07 | `fom/measure_fom.py` runs the verifier with `CPATH` set to GCC's built-in headers (`c++ -print-file-name=include`) | The pip libclang wheel lacks clang's built-in headers and stops at "'stddef.h' file not found"; the tools stay unchanged |
 | D-08 | C++ unit tests use a 50-line runner (`tests/cpp/check.hpp`) instead of a test framework | No dependencies, readable by juniors; the summary line `RESULT: x of y tests passed` feeds T in the FoM |
 | D-09 | Every logged iteration keeps its full evidence in `fom/history/iter-N/` (verifier reports, the diagrams they link to, test output, FoM summary); `fom/PROGRESS.md` lists all iterations with links. Iterations 0 and 1 were backfilled by re-measuring their tagged code, and the numbers matched the logged rows | The team requires every iteration's reports to be logged, to track FoM progress |
+| D-10 | In the CODAL build, our sources (domain model, station, device) are compiled as C++20 (`firmware/cxx20.cmake`); CODAL itself stays C++11. `-Wno-register` silences the only warning, from CODAL's CMSIS header | The device runs the same C++20 code as the verified PC build (D-02) |
+| D-11 | The firmware polls the buttons and the accelerometer every 20 ms instead of listening on CODAL's message bus | On the board, queued bus events did not reach our handlers, while polling saw every press (3 diagnostic builds, [m3-firmware.md](m3-firmware.md)). Polling is also simpler and its logic (`InputDecoder`) is unit-tested |
+| D-12 | Hardware runs are checked with `tests/hardware/replay_log`, which replays the inputs the board received through the PC-tested station code | It verifies the board line by line even when the person's inputs differ from the planned sequence |

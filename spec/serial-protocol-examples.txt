@@ -1,0 +1,31 @@
+# Golden lines of the serial protocol (spec/serial-protocol.md).
+#
+# Lines starting with # are comments; every other line is one exact protocol line.
+# Starting from the demo data (firmware/station/demo_data.hpp):
+#   students S001, S002, S003; items Multimeter (2 units), Oscilloskop (1), Loddestasjon (3)
+# the inputs below, in this order, must produce exactly these lines.
+#
+# start-up
+0,START,S001,Multimeter,LEDIG,OK
+# B: borrow -> 1 of 2 Multimeter left, still LEDIG
+1,LAAN_UT,S001,Multimeter,LEDIG,OK
+# B: borrow -> 0 of 2 left: UTLÅNT
+2,LAAN_UT,S001,Multimeter,UTLÅNT,OK
+# B: borrow -> none left: refused
+3,LAAN_UT,S001,Multimeter,UTLÅNT,FEIL
+# tilt left: next student
+4,VELG,S002,Multimeter,UTLÅNT,OK
+# A: return -> S002 has no loan of Multimeter: refused
+5,RETUR,S002,Multimeter,UTLÅNT,FEIL
+# tilt left, tilt left: S003, then back to S001 (wrap-around)
+6,VELG,S003,Multimeter,UTLÅNT,OK
+7,VELG,S001,Multimeter,UTLÅNT,OK
+# A: return -> 1 of 2 back: LEDIG
+8,RETUR,S001,Multimeter,LEDIG,OK
+# tilt right: next item
+9,VELG,S001,Oscilloskop,LEDIG,OK
+# B: borrow -> 0 of 1 left: UTLÅNT
+10,LAAN_UT,S001,Oscilloskop,UTLÅNT,OK
+# tilt right, tilt right: Loddestasjon, then back to Multimeter (wrap-around)
+11,VELG,S001,Loddestasjon,LEDIG,OK
+12,VELG,S001,Multimeter,LEDIG,OK

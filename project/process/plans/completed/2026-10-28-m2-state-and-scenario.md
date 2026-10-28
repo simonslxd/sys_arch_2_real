@@ -19,4 +19,4 @@ diagram, with tests and FoM measurement #2. Spec: [m2-state-and-scenario.md](../
 - [x] Update `deviations.md` (DEV-02, 03, 06, 09, 10 settled; DEV-15 new) and `requirements.md` (REQ-DOM-02,
       REQ-DOM-03 verified; A-05, A-11).
 - [x] Log FoM iteration 2 (archived in `fom/history/iter-2/`); determinism check of the traced run.
-- [ ] The team reviews, commits and tags `iter-2`.
+- [x] The team reviews, commits and tags `iter-2`.
