@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="sequence-laan-ut" name="Laan ut sequence">
+    <mxGraphModel dx="1250" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="920" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="actor" value="Lab Ansatt" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fontSize=14;" vertex="1" parent="1"><mxGeometry x="45" y="30" width="100" height="95" as="geometry"/></mxCell>
+        <mxCell id="lab" value="Lab" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="235" y="50" width="150" height="60" as="geometry"/></mxCell>
+        <mxCell id="objs" value="UtlaansObjekter" style="rounded=0;whiteSpace=wrap;html=1;fontSize=15;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="465" y="50" width="170" height="60" as="geometry"/></mxCell>
+        <mxCell id="object" value="Objekt" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="720" y="50" width="150" height="60" as="geometry"/></mxCell>
+        <mxCell id="students" value="Studenter" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="975" y="50" width="150" height="60" as="geometry"/></mxCell>
+        <mxCell id="life1" style="dashed=1;dashPattern=6 6;html=1;endArrow=none;strokeWidth=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="95" y="125" as="sourcePoint"/><mxPoint x="95" y="760" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="life2" style="dashed=1;dashPattern=6 6;html=1;endArrow=none;strokeWidth=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="310" y="110" as="sourcePoint"/><mxPoint x="310" y="760" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="life3" style="dashed=1;dashPattern=6 6;html=1;endArrow=none;strokeWidth=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="550" y="110" as="sourcePoint"/><mxPoint x="550" y="760" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="life4" style="dashed=1;dashPattern=6 6;html=1;endArrow=none;strokeWidth=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="795" y="110" as="sourcePoint"/><mxPoint x="795" y="760" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="life5" style="dashed=1;dashPattern=6 6;html=1;endArrow=none;strokeWidth=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1050" y="110" as="sourcePoint"/><mxPoint x="1050" y="760" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m1" value="Laan(Objekt, Student)" style="edgeStyle=none;html=1;endArrow=block;endFill=1;fontSize=14;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="95" y="170" as="sourcePoint"/><mxPoint x="310" y="170" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m2" value="finnObjekt(Objekt)" style="edgeStyle=none;html=1;endArrow=block;endFill=1;fontSize=14;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="310" y="230" as="sourcePoint"/><mxPoint x="550" y="230" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m3" value="Objekt" style="edgeStyle=none;html=1;dashed=1;endArrow=open;fontSize=14;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="550" y="285" as="sourcePoint"/><mxPoint x="310" y="285" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m4" value="erTilgjengelig()" style="edgeStyle=none;html=1;endArrow=block;endFill=1;fontSize=14;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="310" y="345" as="sourcePoint"/><mxPoint x="795" y="345" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m5" value="Bool" style="edgeStyle=none;html=1;dashed=1;endArrow=open;fontSize=14;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="795" y="400" as="sourcePoint"/><mxPoint x="310" y="400" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="alt" value="alt  Objekt er tilgjengelig" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;dashed=1;strokeWidth=1.5;fontSize=14;" vertex="1" parent="1"><mxGeometry x="250" y="425" width="910" height="190" as="geometry"/></mxCell>
+        <mxCell id="m6" value="finnStudent(Student)" style="edgeStyle=none;html=1;endArrow=block;endFill=1;fontSize=14;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="310" y="475" as="sourcePoint"/><mxPoint x="1050" y="475" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m7" value="Student" style="edgeStyle=none;html=1;dashed=1;endArrow=open;fontSize=14;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="1050" y="530" as="sourcePoint"/><mxPoint x="310" y="530" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m8" value="settStudentPaaLaan()" style="edgeStyle=none;html=1;endArrow=block;endFill=1;fontSize=14;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="310" y="585" as="sourcePoint"/><mxPoint x="795" y="585" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="m9" value="Bool" style="edgeStyle=none;html=1;dashed=1;endArrow=open;fontSize=14;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="310" y="660" as="sourcePoint"/><mxPoint x="95" y="660" as="targetPoint"/></mxGeometry></mxCell>
+        <mxCell id="note" value="Kildediagrammets stiplede retur «Laan» har uklar mottaker.&#xa;Ved utilgjengelig utstyr viser UI en melding og oppretter ikke utlån." style="shape=note;whiteSpace=wrap;html=1;fontSize=14;" vertex="1" parent="1"><mxGeometry x="330" y="715" width="650" height="90" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

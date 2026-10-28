@@ -1,0 +1,49 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="activity-design" name="Borrow and return activity">
+    <mxGraphModel dx="1400" dy="1350" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1350" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="start" style="ellipse;html=1;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="675" y="25" width="28" height="28" as="geometry"/></mxCell>
+        <mxCell id="overview" value="Vis Lab_Utstyr, Student og aktive Utlaan" style="rounded=1;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="495" y="100" width="390" height="70" as="geometry"/></mxCell>
+        <mxCell id="choice" value="Handling?" style="rhombus;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="610" y="220" width="160" height="100" as="geometry"/></mxCell>
+        <mxCell id="chooseEq" value="Velg Student og Lab_Utstyr" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="70" y="390" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="findEq" value="finnObjekt(Objekt)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="70" y="500" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="available" value="Tilgjengelig?" style="rhombus;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="125" y="610" width="190" height="110" as="geometry"/></mxCell>
+        <mxCell id="studentFind" value="finnStudent(Student)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="70" y="790" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="setLoan" value="settStudentPaaLaan()" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="70" y="885" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="createLoan" value="Opprett Utlaan med antall = 1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="70" y="980" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="reduceCount" value="regUtlaan() reduserer antall_tilgjengelig" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="70" y="1075" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="addLists" value="Legg Utlaan i Lab.utlaansliste&#xa;og Student.mine_laan" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="70" y="1170" width="300" height="75" as="geometry"/></mxCell>
+        <mxCell id="unavailable" value="Vis melding om&#xa;utilgjengelig utstyr" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="440" y="625" width="240" height="80" as="geometry"/></mxCell>
+        <mxCell id="selectLoan" value="Velg et aktivt Utlaan&#xa;fra denne økten" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="970" y="390" width="300" height="75" as="geometry"/></mxCell>
+        <mxCell id="registerReturn" value="registrer_retur(utlaan)" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="970" y="500" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="removeStudent" value="Fjern Utlaan fra Student.mine_laan" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="970" y="595" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="restoreCount" value="regRetur() øker antall_tilgjengelig" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="970" y="690" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="removeLab" value="Fjern Utlaan fra Lab.utlaansliste" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="970" y="785" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="update" value="Oppdater oversiktene&#xa;Vis LEDIG ↔ UTLÅNT etter tilgjengelig antall" style="rounded=1;whiteSpace=wrap;html=1;fontSize=15;" vertex="1" parent="1"><mxGeometry x="500" y="1195" width="400" height="85" as="geometry"/></mxCell>
+        <mxCell id="stop" style="ellipse;html=1;aspect=fixed;fillColor=#000000;strokeColor=#000000;strokeWidth=5;" vertex="1" parent="1"><mxGeometry x="685" y="1300" width="28" height="28" as="geometry"/></mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="start" target="overview"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="overview" target="choice"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" value="laan_ut" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="choice" target="chooseEq"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="360" y="270"/></Array></mxGeometry></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="chooseEq" target="findEq"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="findEq" target="available"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" value="ja" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="available" target="studentFind"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" value="nei" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="available" target="unavailable"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="390" y="665"/></Array></mxGeometry></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="studentFind" target="setLoan"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="setLoan" target="createLoan"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="createLoan" target="reduceCount"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="reduceCount" target="addLists"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" value="registrer_retur" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="choice" target="selectLoan"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1120" y="270"/></Array></mxGeometry></mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="selectLoan" target="registerReturn"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="registerReturn" target="removeStudent"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="removeStudent" target="restoreCount"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="restoreCount" target="removeLab"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="addLists" target="update"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="420" y="1208"/></Array></mxGeometry></mxCell>
+        <mxCell id="e18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="unavailable" target="update"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="710" y="690"/><mxPoint x="710" y="1160"/></Array></mxGeometry></mxCell>
+        <mxCell id="e19" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="removeLab" target="update"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="920" y="820"/><mxPoint x="920" y="1240"/></Array></mxGeometry></mxCell>
+        <mxCell id="e20" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="update" target="stop"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

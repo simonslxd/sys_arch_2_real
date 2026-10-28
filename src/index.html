@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="En lokal mock-up for oversikt over laboratorieutstyr og utlån."
+    >
+    <title>Laboratorieutlån – mock-up</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Laboratorieutlån, til toppen">
+          <span class="brand-mark" aria-hidden="true">L</span>
+          <span>Laboratorieutlån</span>
+        </a>
+        <span class="demo-badge">Kun eksempeldata</span>
+      </div>
+    </header>
+
+    <main id="top" class="page-shell">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">LAB · UTSTYR OG UTLÅN</p>
+        <h1 id="page-title">En ryddig oversikt over laboratorieutstyr</h1>
+        <p class="intro-copy">
+          Se tilgjengelig utstyr, studenter og aktive lån. Endringer gjelder
+          bare denne nettleserøkten.
+        </p>
+        <p class="reset-note">
+          <span class="reset-dot" aria-hidden="true"></span>
+          Oppdater siden for å tilbakestille eksempeldataene
+        </p>
+      </section>
+
+      <section class="panel equipment-panel" aria-labelledby="equipment-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">UTSTYRSOVERSIKT</p>
+            <h2 id="equipment-title">Lab_Utstyr</h2>
+          </div>
+          <span id="equipment-count" class="count-badge">0 typer</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">utstyr_navn</th>
+                <th scope="col">antall_tilgjengelig</th>
+                <th scope="col">antall_totalt</th>
+                <th scope="col">Tilstand</th>
+              </tr>
+            </thead>
+            <tbody id="equipment-list"></tbody>
+          </table>
+        </div>
+        <p class="model-note">
+          Tilstanden er <code>LEDIG</code> når minst ett eksemplar er
+          tilgjengelig, ellers <code>UTLÅNT</code>.
+        </p>
+      </section>
+
+      <div class="content-grid">
+        <section class="panel action-panel" aria-labelledby="loan-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">REGISTRER UTLÅN</p>
+              <h2 id="loan-title">Laan(Objekt, Student)</h2>
+            </div>
+            <span class="step-number" aria-hidden="true">01</span>
+          </div>
+          <p class="panel-copy">
+            Velg en student og en utstyrstype. Ett eksemplar registreres per
+            utlån.
+          </p>
+          <form id="loan-form">
+            <label for="loan-student">Student</label>
+            <select id="loan-student" name="student" required></select>
+
+            <label for="loan-equipment">Lab_Utstyr</label>
+            <select id="loan-equipment" name="equipment" required></select>
+
+            <button class="button button-primary" type="submit">
+              Registrer utlån
+              <span aria-hidden="true">→</span>
+            </button>
+          </form>
+        </section>
+
+        <section class="panel action-panel" aria-labelledby="return-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">REGISTRER RETUR</p>
+              <h2 id="return-title">registrer_retur(utlaan)</h2>
+            </div>
+            <span class="step-number" aria-hidden="true">02</span>
+          </div>
+          <p class="panel-copy">
+            Velg et aktivt utlån fra denne økten for å registrere retur.
+          </p>
+          <form id="return-form">
+            <label for="return-loan">Aktivt Utlaan</label>
+            <select id="return-loan" name="loan" required disabled>
+              <option value="">Ingen aktive utlån</option>
+            </select>
+
+            <button class="button button-secondary" type="submit" disabled>
+              Registrer retur
+              <span aria-hidden="true">↩</span>
+            </button>
+          </form>
+        </section>
+      </div>
+
+      <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+
+      <div class="content-grid overview-grid">
+        <section class="panel" aria-labelledby="students-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">REGISTRERTE EKSEMPLER</p>
+              <h2 id="students-title">Student</h2>
+            </div>
+            <span id="student-count" class="count-badge">0 studenter</span>
+          </div>
+          <ul id="student-list" class="record-list"></ul>
+        </section>
+
+        <section class="panel" aria-labelledby="active-loans-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">UTLÅN I DENNE ØKTEN</p>
+              <h2 id="active-loans-title">Utlaan</h2>
+            </div>
+            <span id="loan-count" class="count-badge">0 aktive</span>
+          </div>
+          <ul id="active-loan-list" class="record-list"></ul>
+        </section>
+      </div>
+
+      <details class="model-details">
+        <summary>Modellnavn og avgrensninger</summary>
+        <div class="details-content">
+          <p>
+            Modellen viser <code>Lab</code>, <code>Lab_Utstyr</code>,
+            <code>Student</code> og <code>Utlaan</code>. Tilstandsmaskinen har
+            bare <code>LEDIG</code> og <code>UTLÅNT</code>, med overgangene
+            <code>regUtlaan()</code> og <code>regRetur()</code>.
+          </p>
+          <p>
+            Sekvensdiagrammets livslinjenavn <code>UtlaansObjekter</code>,
+            <code>Objekt</code> og <code>Studenter</code> vises som scenarionavn,
+            ikke som nye modellklasser. Den stiplede returmeldingen
+            <code>Laan</code> har en uklar mottaker i kilden og er derfor ikke
+            gjettet eller simulert.
+          </p>
+          <p>
+            Én utstyrspost kan representere flere eksemplarer. Statusen i
+            oversikten følger derfor antakelsen om at posten er
+            <code>LEDIG</code> dersom <code>antall_tilgjengelig &gt; 0</code>.
+            Dette er fiktive data; ingen informasjon lagres etter at siden
+            lukkes eller oppdateres.
+          </p>
+        </div>
+      </details>
+
+      <footer class="page-footer">
+        <span>Laboratorieutlån · mock-up</span>
+        <span>Ingen ekte person- eller utstyrsdata</span>
+      </footer>
+    </main>
+  </body>
+</html>
