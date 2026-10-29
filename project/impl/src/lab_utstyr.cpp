@@ -71,4 +71,8 @@ void Lab_Utstyr::handle(Event event)
 
 Lab_Utstyr::State Lab_Utstyr::get_state() const { return state_; }
 
+int Lab_Utstyr::get_antall_tilgjengelig() const { return antall_tilgjengelig_; }
+
+int Lab_Utstyr::get_antall_totalt() const { return antall_totalt_; }
+
 }  // namespace labutlaan

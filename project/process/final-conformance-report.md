@@ -1,6 +1,8 @@
 # Final conformance report: micro:bit lab-lending IoT prototype
 
-Status after iteration 6 (2026-10-28). Repository: github.com/simonslxd/sys_arch_2_real, tags `iter-0` to `iter-6`.
+Status after iteration 7 (2026-10-29). Repository: github.com/simonslxd/sys_arch_2_real, tags `iter-0` to `iter-7`.
+Iteration 7 added one feature at the team's request: the dashboard shows "x av y ledig" for every item
+([specs/m7-equipment-counts.md](specs/m7-equipment-counts.md)).
 
 ## 1. What was built
 
@@ -38,6 +40,7 @@ R = requirements verified. Every iteration's reports are archived in `fom/histor
 | 4 | dashboard, live | 30.7 | 100.0 (41) | 63.2 | **64.6** | – |
 | 5 | CSV storage | 30.7 | 100.0 (50) | 89.5 | **73.4** | – |
 | 6 | benchmark, SRP review, this report | 30.7 | 100.0 (50) | 100.0 | **76.9** | 87 ns |
+| 7 | available counts on the dashboard | 29.8 | 100.0 (59) | 100.0 | **76.6** | 65 ns |
 
 The FoM is deterministic: two runs on the same code gave byte-identical reports (checked in iterations 1 and 2),
 and re-measuring the tagged code of iterations 0 and 1 reproduced their logged numbers. The benchmark (ns per loan
@@ -62,7 +65,7 @@ Numbers: [fom/benchmark-versions.csv](../../fom/benchmark-versions.csv).
 **What limits the FoM is A (30.7 %), and that comes from the diagrams, not the code** (section 4). Every drawn
 element is implemented. Section 5 lists the draw.io changes that would remove most of the differences.
 
-## 3. Requirements: 19 of 19 verified
+## 3. Requirements: 21 of 21 verified
 
 Full table with the evidence for each: [specs/requirements.md](specs/requirements.md).
 
@@ -72,7 +75,8 @@ Full table with the evidence for each: [specs/requirements.md](specs/requirement
 | Domain | REQ-DOM-01 to 03 | Verifier reports (section 4) + deviation log |
 | Communication | REQ-COM-01, 02 | Golden-lines contract test (C++ and JS); hardware logs; browser test |
 | Storage, UI | REQ-STO-01, 02, REQ-UI-01 | CSV tests; the browser test's file held exactly the 4 loans/returns given; reload showed the history |
-| Tests, verification | REQ-TST-01, 02, REQ-VER-01, 02 | 34 C++ + 16 JS tests; benchmark; deterministic verifier; 7 logged iterations |
+| Tests, verification | REQ-TST-01, 02, REQ-VER-01, 02 | 40 C++ + 19 JS tests; benchmark; deterministic verifier; 8 logged iterations |
+| Counts (iteration 7) | REQ-UI-02, REQ-COM-03 | Golden `STATUS` lines (C++ and JS); `STATUS` answered over COM3; the browser test's CSV file: 11 of 11 count changes follow the rules |
 | Process | REQ-PRO-01, 02 | Tags on GitHub; [specs/srp-review.md](specs/srp-review.md) |
 
 **Read with care:**
@@ -86,11 +90,11 @@ Full table with the evidence for each: [specs/requirements.md](specs/requirement
 
 | Diagram | Alignment | Identical | Differences |
 |---|--:|--:|---|
-| Class | 57.5 % | 23 of 40 | 2 changed, 5 missing, 10 extra |
+| Class | 54.8 % | 23 of 42 | 2 changed, 5 missing, 12 extra |
 | State (`Lab_Utstyr`) | 22.2 % | 2 of 9 | 2 missing, 5 extra |
 | Sequence (loan) | 12.5 % | 2 of 16 | 8 missing, 6 extra |
 
-Every difference is explained in [specs/deviations.md](specs/deviations.md) (DEV-01 to DEV-16, none open). By
+Every difference is explained in [specs/deviations.md](specs/deviations.md) (DEV-01 to DEV-17, none open). By
 cause:
 
 | Cause | Deviations | Effect |
@@ -98,11 +102,11 @@ cause:
 | **Labels or arrows drawn but not attached**, so the verifier doesn't read them | DEV-05 (`get_navn()`), DEV-08 (`Utlaan → Lab_Utstyr`), DEV-09 (state events), DEV-10 (start arrow), DEV-11 (actor name) | Drawn elements count as missing; their implementation counts as extra |
 | **The same thing drawn twice:** a list both as an attribute and as a relation without a role name | DEV-12 | Each relation is missing once and extra once |
 | **Sequence lifelines and messages that aren't classes or methods** in the class diagram | DEV-02 | Almost no sequence message can match |
-| **Elements the mapping requires but the class box doesn't show** | DEV-03 (`state`, `handle`), DEV-15 (`get_state`) | Extra in the class report |
+| **Elements the mapping requires but the class box doesn't show** | DEV-03 (`state`, `handle`), DEV-15 (`get_state`), DEV-17 (`get_antall_tilgjengelig`, `get_antall_totalt`, iteration 7) | Extra in the class report |
 | **Types the verifier doesn't understand** | DEV-14 (`Utlaan[0..*]`) | Changed |
 | **Verifier limitation** (not fixable by drawing) | DEV-13 (`vector<Utlaan*>` read as an attribute) | 1 changed relation + 1 extra attribute |
 | Naming and file names | DEV-01, DEV-04, DEV-06 | Resolved or handled (renamed copies, `UTLÅNT` as a UTF-8 identifier) |
-| Getters missing from the model | DEV-16 | The station keeps student numbers itself; the protocol sends state, not counts |
+| Getters missing from the model | DEV-16 | The station keeps student numbers itself (the counts have getters since iteration 7) |
 
 ## 5. Candidate diagram fixes for the next iteration
 
@@ -114,11 +118,12 @@ Each is a small change in draw.io. Doing them in a separate commit shows their e
    Resolves DEV-12.
 2. Attach the `Utlaan → Lab_Utstyr` arrow, give it role `utlaant_utstyr`, and remove the attribute. Resolves DEV-08.
 3. Move `+ get_navn(): string` into the `Lab_Utstyr` box. Resolves DEV-05.
-4. Add `- state: State`, `+ handle(event: Event): void` and `+ get_state(): State` to `Lab_Utstyr`. Resolves DEV-03
-   and DEV-15.
+4. Add `- state: State`, `+ handle(event: Event): void`, `+ get_state(): State`,
+   `+ get_antall_tilgjengelig(): int` and `+ get_antall_totalt(): int` to `Lab_Utstyr`. Resolves DEV-03, DEV-15 and
+   DEV-17.
 5. Write `get_laan()`'s return type as `vector<Utlaan>`, and `Utlån` as `Utlaan`. Resolves DEV-14 and DEV-04.
-6. Optional: add `get_studentnummer()` and `get_antall_tilgjengelig()`. That would let the protocol send counts
-   (DEV-16), but needs a code change too.
+6. Optional: add `get_studentnummer()` to `Student`. Then the station no longer needs its own list of student
+   numbers (DEV-16), but that needs a code change too.
 
 **State diagram**
 

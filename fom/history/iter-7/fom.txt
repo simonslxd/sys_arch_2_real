@@ -1,0 +1,10 @@
+Iteration 7, measured 2026-10-29 at iter-6-1-g30e2954-dirty
+
+  class-report.md: 54.8 %
+  state-lab_utstyr-report.md: 22.2 %
+  sequence-laan_ut-report.md: 12.5 %
+  tests: 59 of 59 passed (C++ 40/40, JS 19/19)
+  requirements: 21 of 21 verified
+  benchmark: 65 ns per laan_ut + registrer_retur (100 students, 100 items; not part of the FoM)
+
+  A = 29.8 %   T = 100.0 %   R = 100.0 %   FoM = 76.6 %

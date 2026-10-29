@@ -2,8 +2,8 @@
 //
 // This file wires the modules together, in one loop, and picks the feedback for each Command
 // (show_feedback):
-//   InputHandler       waits for a button press or tilt -> Command
-//   StationController  runs the Command on the domain model (project/impl) -> StationEvent
+//   InputHandler       waits for a button press, a tilt or a status request -> Command
+//   StationController  runs the Command on the domain model (project/impl) -> StationEvents
 //   event_writer       StationEvent -> one line on the USB serial port (spec/serial-protocol.md)
 //   FeedbackOutput     ✓ / ✗ on the LEDs and a high / low beep, or the new selection
 #include "MicroBit.h"
@@ -25,6 +25,10 @@ void send(const station::StationEvent& event)
 void show_feedback(FeedbackOutput& feedback, const station::StationController& controller,
                    station::Command command, const station::StationEvent& event)
 {
+    if (command == station::Command::Status)
+    {
+        return;   // a request from the dashboard: nothing to show on the board
+    }
     if (command == station::Command::NextStudent)
     {
         feedback.show_selection(ManagedString("S") + ManagedString(int(controller.student_number())));
@@ -53,8 +57,11 @@ int main()
     while (true)
     {
         const station::Command command = input.wait_for_command();
-        const station::StationEvent event = controller.execute(command);
-        send(event);
-        show_feedback(feedback, controller, command, event);
+        const std::vector<station::StationEvent> events = controller.execute(command);
+        for (const station::StationEvent& event : events)
+        {
+            send(event);
+        }
+        show_feedback(feedback, controller, command, events.front());
     }
 }

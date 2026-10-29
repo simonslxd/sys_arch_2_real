@@ -1,4 +1,5 @@
-// Connects to the micro:bit over WebSerial and delivers each complete text line.
+// Connects to the micro:bit over WebSerial, delivers each complete text line, and can send text
+// back (the status request).
 // WebSerial works in Chrome and Edge, and only on https or http://localhost.
 
 const MICROBIT_USB_VENDOR_ID = 0x0d28;   // the micro:bit's USB interface chip (DAPLink)
@@ -39,6 +40,16 @@ export class SerialLink {
     this.port = await navigator.serial.requestPort({ filters: [{ usbVendorId: MICROBIT_USB_VENDOR_ID }] });
     await this.port.open({ baudRate: BAUD_RATE });
     this.readLoop = this.readLines();
+  }
+
+  // Sends text to the micro:bit, e.g. the status request "STATUS\n" (spec/serial-protocol.md).
+  async send(text) {
+    const writer = this.port.writable.getWriter();
+    try {
+      await writer.write(new TextEncoder().encode(text));
+    } finally {
+      writer.releaseLock();
+    }
   }
 
   async disconnect() {

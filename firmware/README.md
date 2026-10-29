@@ -9,6 +9,7 @@ buttons and accelerometer, and reports every event over USB serial (`spec/serial
 | button **A** (left) | Return | `Lab::registrer_retur` | ✓ + high beep, or ✗ + low beep |
 | tilt **left** | NextStudent | — | scrolls `S1`, `S2`, `S3` |
 | tilt **right** | NextItem | — | scrolls `U1`, `U2`, `U3` |
+| the line `STATUS` from the dashboard | Status | `Lab_Utstyr::get_antall_tilgjengelig`, `get_antall_totalt` | none; sends one `STATUS` line per item |
 
 "Left" is the side labelled **A**: hold the board with the USB plug pointing away from you.
 
@@ -30,8 +31,8 @@ again from scratch, delete `build/codal/`.
 
 | Folder | What | Tested on the PC |
 |---|---|---|
-| `station/` | Hardware-free logic: `StationController` (selection + domain calls), `InputDecoder` (readings → Commands), `event_writer` (serial line), `demo_data.hpp` | yes: `tests/cpp/` |
-| `device/` | Touches the hardware: `InputHandler` (reads buttons + accelerometer every 20 ms), `FeedbackOutput` (LEDs + speaker), `main.cpp` (wiring) | no: `tests/hardware/` |
+| `station/` | Hardware-free logic: `StationController` (selection + domain calls), `InputDecoder` (readings → Commands), `SerialCommandReader` (characters from the dashboard → Commands), `event_writer` (serial line), `demo_data.hpp` | yes: `tests/cpp/` |
+| `device/` | Touches the hardware: `InputHandler` (reads buttons, accelerometer and serial input every 20 ms), `FeedbackOutput` (LEDs + speaker), `main.cpp` (wiring) | no: `tests/hardware/` |
 | `codal.json`, `cxx20.cmake`, `build.sh` | CODAL version pin; compile our sources as C++20; the build | — |
 
 ## Hardware check

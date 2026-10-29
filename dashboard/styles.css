@@ -51,3 +51,5 @@ th { position: sticky; top: 0; background: var(--flate); }
 .feil { color: var(--feil); font-weight: 600; }
 
 .fra-fil td { color: #59636e; }
+
+.antall { font-weight: 600; font-size: 1.1rem; }

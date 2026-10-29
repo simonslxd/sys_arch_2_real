@@ -1,31 +1,36 @@
-# Golden lines of the serial protocol (spec/serial-protocol.md).
+# Golden lines of the serial protocol, version 2 (spec/serial-protocol.md).
 #
 # Lines starting with # are comments; every other line is one exact protocol line.
 # Starting from the demo data (firmware/station/demo_data.hpp):
 #   students S001, S002, S003; items Multimeter (2 units), Oscilloskop (1), Loddestasjon (3)
 # the inputs below, in this order, must produce exactly these lines.
+# The last two fields are the named item's available and total count.
 #
 # start-up
-0,START,S001,Multimeter,LEDIG,OK
+0,START,S001,Multimeter,LEDIG,OK,2,2
 # B: borrow -> 1 of 2 Multimeter left, still LEDIG
-1,LAAN_UT,S001,Multimeter,LEDIG,OK
+1,LAAN_UT,S001,Multimeter,LEDIG,OK,1,2
 # B: borrow -> 0 of 2 left: UTLÅNT
-2,LAAN_UT,S001,Multimeter,UTLÅNT,OK
+2,LAAN_UT,S001,Multimeter,UTLÅNT,OK,0,2
 # B: borrow -> none left: refused
-3,LAAN_UT,S001,Multimeter,UTLÅNT,FEIL
+3,LAAN_UT,S001,Multimeter,UTLÅNT,FEIL,0,2
 # tilt left: next student
-4,VELG,S002,Multimeter,UTLÅNT,OK
+4,VELG,S002,Multimeter,UTLÅNT,OK,0,2
 # A: return -> S002 has no loan of Multimeter: refused
-5,RETUR,S002,Multimeter,UTLÅNT,FEIL
+5,RETUR,S002,Multimeter,UTLÅNT,FEIL,0,2
 # tilt left, tilt left: S003, then back to S001 (wrap-around)
-6,VELG,S003,Multimeter,UTLÅNT,OK
-7,VELG,S001,Multimeter,UTLÅNT,OK
+6,VELG,S003,Multimeter,UTLÅNT,OK,0,2
+7,VELG,S001,Multimeter,UTLÅNT,OK,0,2
 # A: return -> 1 of 2 back: LEDIG
-8,RETUR,S001,Multimeter,LEDIG,OK
+8,RETUR,S001,Multimeter,LEDIG,OK,1,2
 # tilt right: next item
-9,VELG,S001,Oscilloskop,LEDIG,OK
+9,VELG,S001,Oscilloskop,LEDIG,OK,1,1
 # B: borrow -> 0 of 1 left: UTLÅNT
-10,LAAN_UT,S001,Oscilloskop,UTLÅNT,OK
+10,LAAN_UT,S001,Oscilloskop,UTLÅNT,OK,0,1
 # tilt right, tilt right: Loddestasjon, then back to Multimeter (wrap-around)
-11,VELG,S001,Loddestasjon,LEDIG,OK
-12,VELG,S001,Multimeter,LEDIG,OK
+11,VELG,S001,Loddestasjon,LEDIG,OK,3,3
+12,VELG,S001,Multimeter,LEDIG,OK,1,2
+# the dashboard sends "STATUS": one line per item, in demo-data order
+13,STATUS,S001,Multimeter,LEDIG,OK,1,2
+14,STATUS,S001,Oscilloskop,UTLÅNT,OK,0,1
+15,STATUS,S001,Loddestasjon,LEDIG,OK,3,3

@@ -79,3 +79,29 @@ when `seq` jumps while connected (D-16). No warning was reported in run 2.
 | REQ-STO-01 loans and returns stored | run 2 file | Pass |
 | REQ-STO-02 history shown after reload | runs 1 and 2 (tester: "it worked") | Pass (observed) |
 | REQ-UI-01 Norwegian dashboard: list, selection, item states | runs 1 and 2 (tester: "it worked") | Pass (observed) |
+
+## Count check (M7), 2026-10-29: protocol version 2
+
+1. Flash the iteration-7 firmware. From PowerShell, send `STATUS` on COM3: the board must answer with one `STATUS`
+   line per item.
+2. Serve the dashboard, **Ny CSV-fil**, **Koble til micro:bit**: *Utstyrsstatus* must list all 3 items with
+   "x av y ledig" before any input.
+3. Give loans and returns (B, A, tilts): the *Ledig* counts follow.
+4. Reload, open the file: the rows come back with their counts. Opening an iteration-6 file must give *"Gammelt
+   filformat uten antall (iterasjon 6). Lag en ny CSV-fil."*
+5. Check the file: `parseCsv` reads every line, and every count change follows the rules (a successful loan −1, a
+   successful return +1, a refused one 0; `LEDIG` exactly when the count is above 0).
+
+| Step | Result |
+|---|---|
+| 1. `STATUS` over COM3 (PowerShell) | `1,STATUS,S001,Multimeter,LEDIG,OK,2,2`, `2,STATUS,S001,Oscilloskop,LEDIG,OK,1,1`, `3,STATUS,S001,Loddestasjon,LEDIG,OK,3,3`: reading serial input works on the board, so the fallback (repeated status) is not needed |
+| 2–4. Browser test | Tester: "done. looks good" |
+| 5. File check | [logs/2026-10-29-dashboard-m7.csv](logs/2026-10-29-dashboard-m7.csv): 14 rows (all `LAAN_UT`/`RETUR`), 0 rejected; 11 of 11 count changes follow the rules, 0 wrong |
+
+| Requirement | Evidence | Result |
+|---|---|---|
+| REQ-UI-02 "x av y ledig", following loans and returns | step 5 file check; browser test | Pass |
+| REQ-COM-03 all items shown on connect | step 1; browser test | Pass |
+
+Note: before this flash, the old firmware sent about 40 `VELG` lines within a few seconds (students cycling). That
+fits a board being moved; whether it was lying still was not confirmed.

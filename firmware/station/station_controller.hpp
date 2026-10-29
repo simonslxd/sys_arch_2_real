@@ -9,18 +9,21 @@
 
 namespace station {
 
-// What the user asks the station to do: one per button press or tilt.
-enum class Command { Borrow, Return, NextStudent, NextItem };
+// What the station is asked to do: one per button press or tilt, or a status request from the
+// dashboard (spec/serial-protocol.md).
+enum class Command { Borrow, Return, NextStudent, NextItem, Status };
 
 // One line of the serial protocol (spec/serial-protocol.md), before it is formatted.
 struct StationEvent
 {
     int seq;
-    std::string event;           // START, LAAN_UT, RETUR or VELG
+    std::string event;           // START, LAAN_UT, RETUR, VELG or STATUS
     std::string studentnummer;   // the selected student
-    std::string utstyr_navn;     // the selected item
-    std::string state;           // the selected item's state: LEDIG or UTLÅNT
+    std::string utstyr_navn;     // the item the line is about
+    std::string state;           // that item's state: LEDIG or UTLÅNT
     bool ok;
+    int antall_tilgjengelig;     // that item's available units
+    int antall_totalt;           // that item's total units
 };
 
 // The station's demo data (assumption A-01).
@@ -37,7 +40,7 @@ struct DemoUtstyr
 };
 
 // Holds the Lab and the current selection, and turns each Command into a call on the domain
-// model and an event to report. No hardware here, so it is unit-tested on the PC.
+// model and the events to report. No hardware here, so it is unit-tested on the PC.
 class StationController
 {
 public:
@@ -45,7 +48,9 @@ public:
     StationController(const std::vector<DemoStudent>& students, const std::vector<DemoUtstyr>& utstyr);
 
     StationEvent start();
-    StationEvent execute(Command command);
+
+    // One event for a button press or tilt; one STATUS event per item for Command::Status.
+    std::vector<StationEvent> execute(Command command);
 
     // 1-based positions of the current selection, for the LED display: "S2", "U3".
     std::size_t student_number() const;
@@ -54,7 +59,7 @@ public:
 private:
     bool borrow();
     bool give_back();
-    StationEvent make_event(const std::string& event, bool ok);
+    StationEvent make_event(const std::string& event, bool ok, const labutlaan::Lab_Utstyr& item);
 
     // The model has no getter for studentnummer, so the station keeps it next to the student (DEV-16).
     struct KnownStudent

@@ -39,8 +39,8 @@ std::vector<Test> event_writer_tests()
     return {
         {"event_writer: formats every field in protocol order",
          [] {
-             station::StationEvent event{7, "LAAN_UT", "S002", "Multimeter", "UTLÅNT", false};
-             CHECK(station::format_event(event) == "7,LAAN_UT,S002,Multimeter,UTLÅNT,FEIL\n");
+             station::StationEvent event{7, "LAAN_UT", "S002", "Multimeter", "UTLÅNT", false, 0, 2};
+             CHECK(station::format_event(event) == "7,LAAN_UT,S002,Multimeter,UTLÅNT,FEIL,0,2\n");
          }},
         {"Golden lines: the input sequence in spec/serial-protocol-examples.txt gives exactly its lines",
          [] {
@@ -49,16 +49,20 @@ std::vector<Test> event_writer_tests()
                  Command::Borrow,      Command::Borrow,      Command::Borrow,   Command::NextStudent,
                  Command::Return,      Command::NextStudent, Command::NextStudent, Command::Return,
                  Command::NextItem,    Command::Borrow,      Command::NextItem, Command::NextItem,
+                 Command::Status,
              };
              StationController controller(station::demo_students(), station::demo_utstyr());
              std::vector<std::string> sent = {station::format_event(controller.start())};
              for (Command input : inputs)
              {
-                 sent.push_back(station::format_event(controller.execute(input)));
+                 for (const station::StationEvent& event : controller.execute(input))
+                 {
+                     sent.push_back(station::format_event(event));
+                 }
              }
 
              const std::vector<std::string> expected = golden_lines();
-             CHECK(expected.size() == 13);
+             CHECK(expected.size() == 16);
              CHECK(sent.size() == expected.size());
              for (std::size_t i = 0; i < expected.size(); ++i)
              {

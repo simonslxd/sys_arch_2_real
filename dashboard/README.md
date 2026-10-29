@@ -21,13 +21,16 @@ Open **http://localhost:8000**, then:
 
 ## What is stored
 
-Every `LAAN_UT` and `RETUR`, both OK and FEIL. `START` and `VELG` only update the page. One line per event: the time
-it was received, then the protocol line unchanged:
+Every `LAAN_UT` and `RETUR`, both OK and FEIL. `START`, `VELG` and `STATUS` only update the page. One line per
+event: the time it was received, then the protocol line unchanged:
 
 ```
-mottatt,seq,event,studentnummer,utstyr_navn,state,result
-2026-10-28T12:00:33.466Z,2,LAAN_UT,S001,Oscilloskop,UTLÅNT,OK
+mottatt,seq,event,studentnummer,utstyr_navn,state,result,antall_tilgjengelig,antall_totalt
+2026-10-29T13:03:47.900Z,31,LAAN_UT,S002,Oscilloskop,UTLÅNT,OK,0,1
 ```
+
+Files from iteration 6 and earlier have no count columns; they are refused with *"Gammelt filformat uten antall
+(iterasjon 6). Lag en ny CSV-fil."*
 
 The file is UTF-8. To open it in Excel, use *Data → From Text/CSV* and choose UTF-8, or `UTLÅNT` shows garbled.
 
@@ -35,12 +38,12 @@ The file is UTF-8. To open it in Excel, use *Data → From Text/CSV* and choose 
 
 | File | Responsibility | Tested |
 |---|---|---|
-| `js/serial_link.js` | WebSerial: choose and open the port (115200 baud), read UTF-8 text, hand out complete lines (`LineBuffer`) | `LineBuffer`: `tests/js/line_buffer.test.mjs`; the connection: by hand |
-| `js/event_parser.js` | One protocol line → event object with the protocol's field names, or an error saying why; counts lines missing between two `seq` values | `tests/js/event_parser.test.mjs`, including the 13 golden lines |
+| `js/serial_link.js` | WebSerial: choose and open the port (115200 baud), read UTF-8 text, hand out complete lines (`LineBuffer`); send the status request | `LineBuffer`: `tests/js/line_buffer.test.mjs`; the connection: by hand |
+| `js/event_parser.js` | One protocol line → event object with the protocol's field names, or an error saying why; checks the counts; counts lines missing between two `seq` values | `tests/js/event_parser.test.mjs`, including the 16 golden lines |
 | `js/csv_format.js` | Which events are stored; event ↔ CSV line; reading a whole file | `tests/js/csv_format.test.mjs` |
 | `js/csv_store.js` | File System Access: choose a new or existing file, read it, append lines one after another | by hand |
 | `js/dashboard_view.js` | Everything on the page: status, buttons, selection, item states, loans and returns, problems | by hand |
-| `js/main.js` | Wiring: file → page; line → parser → page, and → CSV for loans and returns. No logic of its own | by hand |
+| `js/main.js` | Wiring: file → page; on connect, the status request; line → parser → page, and → CSV for loans and returns | by hand |
 | `serve.py` | The web server, without browser caching (so a reload always gets the current JS) | — |
 
 `package.json` only tells Node that `js/*.js` are ES modules, so the tests can import them. There are no

@@ -1,22 +1,24 @@
-// Parses one line of the serial protocol (spec/serial-protocol.md):
+// Parses one line of the serial protocol, version 2 (spec/serial-protocol.md):
 //
-//   <seq>,<event>,<studentnummer>,<utstyr_navn>,<state>,<result>
+//   <seq>,<event>,<studentnummer>,<utstyr_navn>,<state>,<result>,<antall_tilgjengelig>,<antall_totalt>
 //
 // The returned object uses the protocol's own field names, so every value can be traced back
 // to the specification. No browser features are used here, so the tests run in Node.
 
-export const EVENTS = ["START", "LAAN_UT", "RETUR", "VELG"];
+export const EVENTS = ["START", "LAAN_UT", "RETUR", "VELG", "STATUS"];
 export const STATES = ["LEDIG", "UTLÅNT"];
 export const RESULTS = ["OK", "FEIL"];
+const FIELD_COUNT = 8;
 
-// Returns { seq, event, studentnummer, utstyr_navn, state, result }, or throws an Error whose
-// message (in Norwegian, it is shown on the dashboard) says what is wrong with the line.
+// Returns { seq, event, studentnummer, utstyr_navn, state, result, antall_tilgjengelig,
+// antall_totalt }, or throws an Error whose message (in Norwegian, it is shown on the dashboard)
+// says what is wrong with the line.
 export function parseEventLine(line) {
   const fields = line.replace(/\r?\n?$/, "").split(",");
-  if (fields.length !== 6) {
-    throw new Error(`forventet 6 felt, fikk ${fields.length}`);
+  if (fields.length !== FIELD_COUNT) {
+    throw new Error(`forventet ${FIELD_COUNT} felt, fikk ${fields.length}`);
   }
-  const [seqText, event, studentnummer, utstyr_navn, state, result] = fields;
+  const [seqText, event, studentnummer, utstyr_navn, state, result, availableText, totalText] = fields;
 
   if (!/^\d+$/.test(seqText)) {
     throw new Error(`seq er ikke et tall: "${seqText}"`);
@@ -36,7 +38,15 @@ export function parseEventLine(line) {
   if (!RESULTS.includes(result)) {
     throw new Error(`ukjent resultat: "${result}"`);
   }
-  return { seq: Number(seqText), event, studentnummer, utstyr_navn, state, result };
+  if (!/^\d+$/.test(availableText) || !/^\d+$/.test(totalText)) {
+    throw new Error(`antall er ikke et tall: "${availableText}" av "${totalText}"`);
+  }
+  const antall_tilgjengelig = Number(availableText);
+  const antall_totalt = Number(totalText);
+  if (antall_tilgjengelig > antall_totalt) {
+    throw new Error(`flere ledige enn totalt: ${antall_tilgjengelig} av ${antall_totalt}`);
+  }
+  return { seq: Number(seqText), event, studentnummer, utstyr_navn, state, result, antall_tilgjengelig, antall_totalt };
 }
 
 // How many lines are missing between two received lines: seq counts every line the micro:bit

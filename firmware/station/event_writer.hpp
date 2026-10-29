@@ -7,7 +7,7 @@
 namespace station {
 
 // One event as one line of the serial protocol (spec/serial-protocol.md), "\n" included:
-//   <seq>,<event>,<studentnummer>,<utstyr_navn>,<state>,<result>
+//   <seq>,<event>,<studentnummer>,<utstyr_navn>,<state>,<result>,<antall_tilgjengelig>,<antall_totalt>
 std::string format_event(const StationEvent& event);
 
 }  // namespace station

@@ -2,12 +2,15 @@
 //
 //   replay_log <log file>
 //
-// The log is what the board sent (one protocol line per line, START first). From each line the
-// program works out which input the board received:
-//   LAAN_UT -> Borrow, RETUR -> Return, VELG with a new student -> NextStudent, otherwise NextItem.
+// The log is what the board sent (one protocol line per line, START first; protocol version 2).
+// From each line the program works out which input the board received:
+//   LAAN_UT -> Borrow, RETUR -> Return, VELG with a new student -> NextStudent, otherwise NextItem,
+//   STATUS -> a status request (it answers with one STATUS line per item, so one request covers
+//   that many lines).
 // It replays those inputs on a fresh StationController with the same demo data and compares
 // every line it produces with the recorded one. If all match, the board did exactly what the
 // verified code does for those inputs, whatever inputs the person actually gave.
+// Logs in protocol version 1 (iterations 3 to 6) are checked with that iteration's replay_log.
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -43,6 +46,10 @@ station::Command received_input(const std::vector<std::string>& previous, const 
     {
         return station::Command::Return;
     }
+    if (line[1] == "STATUS")
+    {
+        return station::Command::Status;
+    }
     return line[2] != previous[2] ? station::Command::NextStudent : station::Command::NextItem;
 }
 
@@ -77,9 +84,15 @@ int main(int argc, char** argv)
 
     station::StationController controller(station::demo_students(), station::demo_utstyr());
     std::vector<std::string> replayed = {station::format_event(controller.start())};
-    for (std::size_t i = 1; i < recorded.size(); ++i)
+    while (replayed.size() < recorded.size())
     {
-        replayed.push_back(station::format_event(controller.execute(received_input(split(recorded[i - 1]), split(recorded[i])))));
+        // The input behind the next recorded line; its answer may be several lines (STATUS).
+        const std::size_t next = replayed.size();
+        const station::Command input = received_input(split(recorded[next - 1]), split(recorded[next]));
+        for (const station::StationEvent& event : controller.execute(input))
+        {
+            replayed.push_back(station::format_event(event));
+        }
     }
 
     std::size_t matching = 0;

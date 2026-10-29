@@ -1,0 +1,406 @@
+<mxfile host="app.diagrams.net" agent="umlverify" version="24.7.17">
+  <diagram name="1 - Design (human)" id="design">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="design-0" />
+        <mxCell id="design-1" parent="design-0" />
+        <mxCell id="design-c2" value="Lab" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeParentMax=0;html=1;whiteSpace=wrap;startSize=26;" vertex="1" parent="design-1">
+          <mxGeometry x="40.0" y="40.0" width="440.0" height="156" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m3" value="+ legg_til_utstyr(utstyr: Lab_Utstyr): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c2">
+          <mxGeometry y="26" width="440.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m4" value="+ registrer_student(student: Student): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c2">
+          <mxGeometry y="52" width="440.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m5" value="+ laan_ut(student: Student, utstyr: Lab_Utstyr): Utlaan" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c2">
+          <mxGeometry y="78" width="440.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m6" value="+ registrer_retur(utlaan: Utlaan): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c2">
+          <mxGeometry y="104" width="440.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m7" value="+ finn_tilgjengelig_utstyr(utstyr: Lab_Utstyr): Bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c2">
+          <mxGeometry y="130" width="440.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-c8" value="Lab_Utstyr" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeParentMax=0;html=1;whiteSpace=wrap;startSize=26;" vertex="1" parent="design-1">
+          <mxGeometry x="620.0" y="40.0" width="340.0" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m9" value="- utstyr_navn: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c8">
+          <mxGeometry y="26" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m10" value="- antall_totalt: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c8">
+          <mxGeometry y="52" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m11" value="- antall_tilgjengelig: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c8">
+          <mxGeometry y="78" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-d12" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="design-c8">
+          <mxGeometry y="104" width="340.0" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m13" value="+ er_tilgjengelig(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c8">
+          <mxGeometry y="112" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m14" value="+ oek_antall_tilgjengelig(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c8">
+          <mxGeometry y="138" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m15" value="+ reduser_antall_tilgjengelig(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c8">
+          <mxGeometry y="164" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-c16" value="Student" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeParentMax=0;html=1;whiteSpace=wrap;startSize=26;" vertex="1" parent="design-1">
+          <mxGeometry x="40.0" y="400.0" width="320.0" height="164" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m17" value="- studentnummer: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c16">
+          <mxGeometry y="26" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m18" value="- navn: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c16">
+          <mxGeometry y="52" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-d19" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="design-c16">
+          <mxGeometry y="78" width="320.0" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m20" value="+ legg_til_laan(Utlaan): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c16">
+          <mxGeometry y="86" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m21" value="+ fjern_laan(Utlaan): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c16">
+          <mxGeometry y="112" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        <UserObject id="design-m22" label="+ get_laan(): Utlaan[0..*]" tooltip="CHANGED&#10;return type: Utlaan[0..*] (design) → vector&lt;Utlaan&gt; (implemented)">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;" vertex="1" parent="design-c16">
+          <mxGeometry y="138" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <mxCell id="design-c23" value="Utlaan" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeParentMax=0;html=1;whiteSpace=wrap;startSize=26;" vertex="1" parent="design-1">
+          <mxGeometry x="620.0" y="400.0" width="340.0" height="190" as="geometry" />
+        </mxCell>
+        <UserObject id="design-m24" label="- laanetaker: Student" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;" vertex="1" parent="design-c23">
+          <mxGeometry y="26" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <UserObject id="design-m25" label="- utlaant_utstyr: Lab_Utstyr" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;" vertex="1" parent="design-c23">
+          <mxGeometry y="52" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <mxCell id="design-m26" value="- antall: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c23">
+          <mxGeometry y="78" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-d27" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="design-c23">
+          <mxGeometry y="104" width="340.0" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m28" value="+ get_laanetaker(): Student" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c23">
+          <mxGeometry y="112" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m29" value="+ get_utstyr(): Lab_Utstyr" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c23">
+          <mxGeometry y="138" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="design-m30" value="+ get_antall(): int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="design-c23">
+          <mxGeometry y="164" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <UserObject id="design-e31" label="" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="startArrow=diamondThin;startFill=0;startSize=14;endArrow=open;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.2842;entryDx=0;entryDy=0;exitX=1;exitY=0.3103;exitDx=0;exitDy=0;strokeColor=#b85450;strokeWidth=3;fontColor=#b85450;" edge="1" parent="design-1" source="design-c2" target="design-c8">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="design-e31t1" value="0..*" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=top;" vertex="1" parent="design-e31" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="-20" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="design-e31s1" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;" vertex="1" parent="design-e31" connectable="0">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="20" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject id="design-e32" label="" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="startArrow=diamondThin;startFill=0;startSize=14;endArrow=open;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.364;exitY=1;exitDx=0;exitDy=0;strokeColor=#b85450;strokeWidth=3;fontColor=#b85450;" edge="1" parent="design-1" source="design-c2" target="design-c16">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="design-e32t1" value="0..*" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=bottom;" vertex="1" parent="design-e32" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="-4" y="-18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="design-e32s1" value="1" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=top;" vertex="1" parent="design-e32" connectable="0">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="-4" y="18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject id="design-e33" label="" tooltip="MISSING&#10;In the design, but not in the implementation.">
+        <mxCell style="startArrow=diamondThin;startFill=1;startSize=14;endArrow=open;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.05;entryDx=0;entryDy=0;exitX=0.9;exitY=1;exitDx=0;exitDy=0;strokeColor=#b85450;strokeWidth=3;fontColor=#b85450;" edge="1" parent="design-1" source="design-c2" target="design-c23">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="design-e33t1" value="0..*" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=top;" vertex="1" parent="design-e33" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="-20" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="design-e33s1" value="1" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=top;" vertex="1" parent="design-e33" connectable="0">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="-4" y="18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject id="design-e34" label="" tooltip="CHANGED&#10;kind: association --&gt; (design) → dependency ..&gt; (implemented)&#10;cardinality: 0..* (design) → none (implemented)">
+        <mxCell style="endArrow=open;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5793;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#d79b00;strokeWidth=3;fontColor=#d79b00;" edge="1" parent="design-1" source="design-c16" target="design-c23">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="design-e34t1" value="0..*" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=top;" vertex="1" parent="design-e34" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="-20" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="design-e34s1" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;" vertex="1" parent="design-e34" connectable="0">
+          <mxGeometry x="-1" relative="1" as="geometry">
+            <mxPoint x="20" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="design-legend" value="&lt;b&gt;DESIGN&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;drawn by a person · diagrams/input/class.drawio&lt;/font&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="design-1">
+          <mxGeometry x="1040.0" y="40" width="300" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="design-legend-0" value="Identical" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="design-legend">
+          <mxGeometry x="8" y="46" width="284" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="design-legend-1" value="Changed (2)" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="design-legend">
+          <mxGeometry x="8" y="72" width="284" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="design-legend-2" value="Missing from the implementation (5)" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="design-legend">
+          <mxGeometry x="8" y="98" width="284" height="22" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="2 - Implemented (AI)" id="implemented">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="implemented-0" />
+        <mxCell id="implemented-1" parent="implemented-0" />
+        <mxCell id="implemented-c2" value="Lab_Utstyr" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeParentMax=0;html=1;whiteSpace=wrap;startSize=26;" vertex="1" parent="implemented-1">
+          <mxGeometry x="620.0" y="40.0" width="340.0" height="346" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m3" value="- utstyr_navn: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="26" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m4" value="- antall_totalt: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="52" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m5" value="- antall_tilgjengelig: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="78" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <UserObject id="implemented-m6" label="- state: State" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="104" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <mxCell id="implemented-d7" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="130" width="340.0" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m8" value="+ er_tilgjengelig(): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="138" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m9" value="+ oek_antall_tilgjengelig(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="164" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m10" value="+ reduser_antall_tilgjengelig(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="190" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <UserObject id="implemented-m11" label="+ get_navn(): string" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="216" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-m12" label="+ handle(event: Event): void" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="242" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-m13" label="+ get_state(): State" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="268" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-m14" label="+ get_antall_tilgjengelig(): int" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="294" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-m15" label="+ get_antall_totalt(): int" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="implemented-c2">
+          <mxGeometry y="320" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <mxCell id="implemented-c16" value="Student" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeParentMax=0;html=1;whiteSpace=wrap;startSize=26;" vertex="1" parent="implemented-1">
+          <mxGeometry x="40.0" y="400.0" width="320.0" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m17" value="- studentnummer: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c16">
+          <mxGeometry y="26" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m18" value="- navn: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c16">
+          <mxGeometry y="52" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        <UserObject id="implemented-m19" label="- mine_laan: vector&amp;lt;Utlaan&amp;gt;" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="implemented-c16">
+          <mxGeometry y="78" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <mxCell id="implemented-d20" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="implemented-c16">
+          <mxGeometry y="104" width="320.0" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m21" value="+ legg_til_laan(utlaan: Utlaan): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c16">
+          <mxGeometry y="112" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m22" value="+ fjern_laan(utlaan: Utlaan): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c16">
+          <mxGeometry y="138" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        <UserObject id="implemented-m23" label="+ get_laan(): vector&amp;lt;Utlaan&amp;gt;" tooltip="CHANGED&#10;return type: Utlaan[0..*] (design) → vector&lt;Utlaan&gt; (implemented)">
+        <mxCell style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;" vertex="1" parent="implemented-c16">
+          <mxGeometry y="164" width="320.0" height="26" as="geometry" />
+        </mxCell>
+        </UserObject>
+        <mxCell id="implemented-c24" value="Utlaan" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeParentMax=0;html=1;whiteSpace=wrap;startSize=26;" vertex="1" parent="implemented-1">
+          <mxGeometry x="620.0" y="400.0" width="340.0" height="138" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m25" value="- antall: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c24">
+          <mxGeometry y="26" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-d26" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="implemented-c24">
+          <mxGeometry y="52" width="340.0" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m27" value="+ get_laanetaker(): Student" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c24">
+          <mxGeometry y="60" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m28" value="+ get_utstyr(): Lab_Utstyr" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c24">
+          <mxGeometry y="86" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m29" value="+ get_antall(): int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c24">
+          <mxGeometry y="112" width="340.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-c30" value="Lab" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;horizontalStack=0;resizeParent=1;resizeParentMax=0;html=1;whiteSpace=wrap;startSize=26;" vertex="1" parent="implemented-1">
+          <mxGeometry x="40.0" y="40.0" width="440.0" height="156" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m31" value="+ legg_til_utstyr(utstyr: Lab_Utstyr): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c30">
+          <mxGeometry y="26" width="440.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m32" value="+ registrer_student(student: Student): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c30">
+          <mxGeometry y="52" width="440.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m33" value="+ laan_ut(student: Student, utstyr: Lab_Utstyr): Utlaan" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c30">
+          <mxGeometry y="78" width="440.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m34" value="+ registrer_retur(utlaan: Utlaan): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c30">
+          <mxGeometry y="104" width="440.0" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-m35" value="+ finn_tilgjengelig_utstyr(utstyr: Lab_Utstyr): bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="implemented-c30">
+          <mxGeometry y="130" width="440.0" height="26" as="geometry" />
+        </mxCell>
+        <UserObject id="implemented-e36" label="" tooltip="CHANGED&#10;kind: association --&gt; (design) → dependency ..&gt; (implemented)&#10;cardinality: 0..* (design) → none (implemented)">
+        <mxCell style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.6884;entryDx=0;entryDy=0;strokeColor=#d79b00;strokeWidth=3;fontColor=#d79b00;" edge="1" parent="implemented-1" source="implemented-c16" target="implemented-c24">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <UserObject id="implemented-e37" label="" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="endArrow=open;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.0;exitY=0.6522;entryX=1.0;entryY=0.4737;strokeColor=#82b366;strokeWidth=3;fontColor=#82b366;" edge="1" parent="implemented-1" source="implemented-c24" target="implemented-c16">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="implemented-e37t0" value="laanetaker" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" parent="implemented-e37" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="20" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="implemented-e37t1" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;" vertex="1" parent="implemented-e37" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="20" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject id="implemented-e38" label="" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="endArrow=open;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.5000;exitY=0;entryX=0.5000;entryY=1;strokeColor=#82b366;strokeWidth=3;fontColor=#82b366;" edge="1" parent="implemented-1" source="implemented-c24" target="implemented-c2">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="implemented-e38t0" value="utlaant_utstyr" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=top;" vertex="1" parent="implemented-e38" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="4" y="18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="implemented-e38t1" value="1" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=top;" vertex="1" parent="implemented-e38" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="-4" y="18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject id="implemented-e39" label="" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="startArrow=diamondThin;startFill=0;startSize=14;endArrow=open;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=1.0;exitY=0.8974;entryX=0.0;entryY=0.4046;strokeColor=#82b366;strokeWidth=3;fontColor=#82b366;" edge="1" parent="implemented-1" source="implemented-c30" target="implemented-c2">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="implemented-e39t0" value="utstyrsliste" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=bottom;" vertex="1" parent="implemented-e39" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="-20" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="implemented-e39t1" value="*" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=top;" vertex="1" parent="implemented-e39" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="-20" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject id="implemented-e40" label="" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="startArrow=diamondThin;startFill=0;startSize=14;endArrow=open;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.3636;exitY=1.0;entryX=0.5;entryY=0.0;strokeColor=#82b366;strokeWidth=3;fontColor=#82b366;" edge="1" parent="implemented-1" source="implemented-c30" target="implemented-c16">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="implemented-e40t0" value="student_liste" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" parent="implemented-e40" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="4" y="-18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="implemented-e40t1" value="*" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=bottom;" vertex="1" parent="implemented-e40" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="-4" y="-18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject id="implemented-e41" label="" tooltip="EXTRA&#10;In the implementation, but not in the design.">
+        <mxCell style="startArrow=diamondThin;startFill=1;startSize=14;endArrow=open;endSize=12;html=1;rounded=0;edgeStyle=orthogonalEdgeStyle;exitX=0.9545;exitY=1.0;entryX=0.0;entryY=0.1449;strokeColor=#82b366;strokeWidth=3;fontColor=#82b366;" edge="1" parent="implemented-1" source="implemented-c30" target="implemented-c24">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="420.0" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        </UserObject>
+        <mxCell id="implemented-e41t0" value="utlaansliste" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=bottom;" vertex="1" parent="implemented-e41" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="-20" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="implemented-e41t1" value="*" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=top;" vertex="1" parent="implemented-e41" connectable="0">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint x="-20" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="implemented-legend" value="&lt;b&gt;IMPLEMENTED DESIGN&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;built by AI · extracted from impl/include&lt;/font&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="implemented-1">
+          <mxGeometry x="1040.0" y="40" width="300" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-legend-0" value="Identical" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#ffffff;strokeColor=#666666;" vertex="1" parent="implemented-legend">
+          <mxGeometry x="8" y="46" width="284" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-legend-1" value="Changed (2)" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="implemented-legend">
+          <mxGeometry x="8" y="72" width="284" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="implemented-legend-2" value="Extra, not in the design (12)" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=6;fontSize=11;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="implemented-legend">
+          <mxGeometry x="8" y="98" width="284" height="22" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -43,6 +43,18 @@ std::vector<Test> lab_utstyr_tests()
              CHECK(!item.er_tilgjengelig());
          }},
 
+        {"Lab_Utstyr: the count getters follow loans and returns (REQ-UI-02)",
+         [] {
+             Lab_Utstyr item("Multimeter", 2);
+             CHECK(item.get_antall_totalt() == 2);
+             CHECK(item.get_antall_tilgjengelig() == 2);
+             item.reduser_antall_tilgjengelig();
+             CHECK(item.get_antall_tilgjengelig() == 1);
+             item.oek_antall_tilgjengelig();
+             CHECK(item.get_antall_tilgjengelig() == 2);
+             CHECK(item.get_antall_totalt() == 2);
+         }},
+
         // The state machine: the table itself, driven by handle().
         {"State machine: starts in LEDIG",
          [] {

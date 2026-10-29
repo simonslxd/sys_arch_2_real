@@ -8,12 +8,14 @@ std::vector<Test> lab_tests();
 std::vector<Test> station_controller_tests();
 std::vector<Test> event_writer_tests();
 std::vector<Test> input_decoder_tests();
+std::vector<Test> serial_command_reader_tests();
 
 int main()
 {
     std::vector<Test> all;
     for (const auto& tests : {lab_utstyr_tests(), student_tests(), utlaan_tests(), lab_tests(),
-                              station_controller_tests(), event_writer_tests(), input_decoder_tests()})
+                              station_controller_tests(), event_writer_tests(), input_decoder_tests(),
+                              serial_command_reader_tests()})
     {
         all.insert(all.end(), tests.begin(), tests.end());
     }

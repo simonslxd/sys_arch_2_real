@@ -1,5 +1,6 @@
 // Wires the dashboard together and keeps the session's state (connected or not, the last seq):
 //   CSV file    -> stored loans and returns -> page
+//   connect     -> send the status request; each STATUS answer -> that item's row on the page
 //   serial line -> parsed event -> selection and item state on the page; a loan or return is
 //                  also written to the CSV file (with the time it arrived) and listed
 // The rules themselves live in the tested modules: what is stored (csv_format.isLogged), what a
@@ -61,6 +62,10 @@ function handleLine(line) {
   }
   previousSeq = event.seq;
 
+  if (event.event === "STATUS") {
+    view.showItemState(event);   // the answer to our status request: the item table only
+    return;
+  }
   if (!isLogged(event)) {
     view.showSelection(event);
     view.showItemState(event);
@@ -90,6 +95,8 @@ document.getElementById("koble-til").addEventListener("click", async () => {
     previousSeq = null;   // lines sent while disconnected are not counted as missing
     await link.connect();
     connected = true;
+    // The micro:bit's START line went out before we listened: ask for every item's status (REQ-COM-03).
+    await link.send("STATUS\n");
     view.showStatus("Tilkoblet micro:bit. Venter på hendelser …", "tilkoblet");
   } catch (error) {
     if (error.name !== "NotFoundError") {   // NotFoundError: the user closed the port chooser

@@ -19,24 +19,40 @@ StationController::StationController(const std::vector<DemoStudent>& students,
     }
 }
 
-StationEvent StationController::start() { return make_event("START", true); }
+StationEvent StationController::start() { return make_event("START", true, *utstyr_[current_utstyr_]); }
 
-StationEvent StationController::execute(Command command)
+std::vector<StationEvent> StationController::execute(Command command)
 {
+    const labutlaan::Lab_Utstyr& selected = *utstyr_[current_utstyr_];
     switch (command)
     {
     case Command::Borrow:
-        return make_event("LAAN_UT", borrow());
+    {
+        const bool ok = borrow();
+        return {make_event("LAAN_UT", ok, selected)};
+    }
     case Command::Return:
-        return make_event("RETUR", give_back());
+    {
+        const bool ok = give_back();
+        return {make_event("RETUR", ok, selected)};
+    }
     case Command::NextStudent:
         current_student_ = (current_student_ + 1) % students_.size();
-        return make_event("VELG", true);
+        return {make_event("VELG", true, selected)};
     case Command::NextItem:
         current_utstyr_ = (current_utstyr_ + 1) % utstyr_.size();
-        return make_event("VELG", true);
+        return {make_event("VELG", true, *utstyr_[current_utstyr_])};
+    case Command::Status:
+    {
+        std::vector<StationEvent> events;
+        for (const auto& item : utstyr_)
+        {
+            events.push_back(make_event("STATUS", true, *item));
+        }
+        return events;
     }
-    return make_event("VELG", false);   // not reached: every Command is handled above
+    }
+    return {};   // not reached: every Command is handled above
 }
 
 std::size_t StationController::student_number() const { return current_student_ + 1; }
@@ -66,12 +82,17 @@ bool StationController::give_back()
     return false;
 }
 
-StationEvent StationController::make_event(const std::string& event, bool ok)
+StationEvent StationController::make_event(const std::string& event, bool ok, const labutlaan::Lab_Utstyr& item)
 {
-    const labutlaan::Lab_Utstyr& item = *utstyr_[current_utstyr_];
     const bool ledig = item.get_state() == labutlaan::Lab_Utstyr::State::LEDIG;
-    return {next_seq_++, event, students_[current_student_].studentnummer, item.get_navn(),
-            ledig ? "LEDIG" : "UTLÅNT", ok};
+    return {next_seq_++,
+            event,
+            students_[current_student_].studentnummer,
+            item.get_navn(),
+            ledig ? "LEDIG" : "UTLÅNT",
+            ok,
+            item.get_antall_tilgjengelig(),
+            item.get_antall_totalt()};
 }
 
 }  // namespace station

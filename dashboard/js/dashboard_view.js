@@ -13,6 +13,11 @@ function stateClass(state) {
   return state === "LEDIG" ? "ledig" : "utlaant";
 }
 
+// "1 av 2 ledig": available out of total (REQ-UI-02).
+function countText(event) {
+  return `${event.antall_tilgjengelig} av ${event.antall_totalt} ledig`;
+}
+
 // kind: "frakoblet", "tilkoblet" or "feil"
 export function showStatus(text, kind) {
   const status = document.getElementById("status");
@@ -53,7 +58,8 @@ export function showSelection(event) {
   document.getElementById("valgt-utstyr").textContent = event.utstyr_navn;
 }
 
-// One row per item in "Utstyrsstatus"; an event updates the row of the item it names.
+// One row per item in "Utstyrsstatus"; an event updates the row of the item it names: how many
+// are available (REQ-UI-02) and the state.
 export function showItemState(event) {
   const table = document.getElementById("utstyrsstatus");
   let row = table.querySelector(`tr[data-utstyr="${CSS.escape(event.utstyr_navn)}"]`);
@@ -61,10 +67,12 @@ export function showItemState(event) {
     row = table.tBodies[0].insertRow();
     row.dataset.utstyr = event.utstyr_navn;
     cell(row, event.utstyr_navn);
+    cell(row, "", "antall");
     cell(row, "");
   }
-  row.cells[1].textContent = event.state;
-  row.cells[1].className = stateClass(event.state);
+  row.cells[1].textContent = countText(event);
+  row.cells[2].textContent = event.state;
+  row.cells[2].className = stateClass(event.state);
 }
 
 // Newest event first. source: "fil" (read from the CSV file) or "live" (just received).
@@ -78,6 +86,7 @@ export function showEvent(event, mottatt, source) {
   cell(row, event.studentnummer);
   cell(row, event.utstyr_navn);
   cell(row, event.state, stateClass(event.state));
+  cell(row, countText(event));
   cell(row, event.result, event.result === "OK" ? "ok" : "feil");
 }
 

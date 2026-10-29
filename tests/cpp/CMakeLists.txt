@@ -16,11 +16,13 @@ add_executable(unit_tests
     test_input_decoder.cpp
     test_lab.cpp
     test_lab_utstyr.cpp
+    test_serial_command_reader.cpp
     test_station_controller.cpp
     test_student.cpp
     test_utlaan.cpp
     ${STATION_DIR}/event_writer.cpp
     ${STATION_DIR}/input_decoder.cpp
+    ${STATION_DIR}/serial_command_reader.cpp
     ${STATION_DIR}/station_controller.cpp
 )
 target_include_directories(unit_tests PRIVATE ${STATION_DIR})

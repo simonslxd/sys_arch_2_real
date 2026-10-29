@@ -20,6 +20,8 @@ public:
 
     void handle(Event event);
     State get_state() const;   // not drawn; lets tests, firmware and dashboard see the state (DEV-15)
+    int get_antall_tilgjengelig() const;   // not drawn; the dashboard shows "x av y ledig" (DEV-17)
+    int get_antall_totalt() const;         // not drawn (DEV-17)
 
 private:
     std::string utstyr_navn_;
