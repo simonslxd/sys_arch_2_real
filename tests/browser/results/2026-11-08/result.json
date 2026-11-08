@@ -1,0 +1,216 @@
+{
+  "before": {
+    "storageStatus": "Ingen fil valgt. Velg en fil før du kobler til."
+  },
+  "phase1": {
+    "sentToMicrobit": [
+      "STATUS\n"
+    ],
+    "csv": "mottatt,seq,event,studentnummer,utstyr_navn,state,result,antall_tilgjengelig,antall_totalt\n2026-11-08T10:10:40.026Z,3,LAAN_UT,S001,Multimeter,LEDIG,OK,1,2\n2026-11-08T10:10:40.102Z,4,LAAN_UT,S001,Multimeter,UTLÅNT,OK,0,2\n2026-11-08T10:10:40.474Z,10,RETUR,S001,Multimeter,LEDIG,OK,1,2\n2026-11-08T10:10:40.596Z,12,LAAN_UT,S001,Oscilloskop,UTLÅNT,OK,0,1\n",
+    "events": [
+      [
+        "8.11.2026, 11:10:40",
+        "live",
+        "12",
+        "LAAN_UT",
+        "S001",
+        "Oscilloskop",
+        "UTLÅNT",
+        "0 av 1 ledig",
+        "OK"
+      ],
+      [
+        "8.11.2026, 11:10:40",
+        "live",
+        "10",
+        "RETUR",
+        "S001",
+        "Multimeter",
+        "LEDIG",
+        "1 av 2 ledig",
+        "OK"
+      ],
+      [
+        "8.11.2026, 11:10:40",
+        "live",
+        "4",
+        "LAAN_UT",
+        "S001",
+        "Multimeter",
+        "UTLÅNT",
+        "0 av 2 ledig",
+        "OK"
+      ],
+      [
+        "8.11.2026, 11:10:40",
+        "live",
+        "3",
+        "LAAN_UT",
+        "S001",
+        "Multimeter",
+        "LEDIG",
+        "1 av 2 ledig",
+        "OK"
+      ]
+    ],
+    "items": [
+      [
+        "Multimeter",
+        "1 av 2 ledig",
+        "LEDIG"
+      ],
+      [
+        "Oscilloskop",
+        "0 av 1 ledig",
+        "UTLÅNT"
+      ],
+      [
+        "Loddestasjon",
+        "3 av 3 ledig",
+        "LEDIG"
+      ]
+    ],
+    "selection": [
+      "S001",
+      "Multimeter"
+    ],
+    "headings": [
+      "1. Lagring (CSV-fil)",
+      "2. Tilkobling",
+      "Valgt på stasjonen",
+      "Student",
+      "Utstyr",
+      "Utstyrsstatus",
+      "Utstyr",
+      "Ledig",
+      "Tilstand",
+      "Utlån og returer (nyeste først)",
+      "Mottatt",
+      "Kilde",
+      "seq",
+      "Hendelse",
+      "Student",
+      "Utstyr",
+      "Tilstand",
+      "Ledig",
+      "Resultat",
+      "Avviste og manglende linjer"
+    ],
+    "layout": {
+      "lagring": {
+        "x": 176,
+        "y": 89,
+        "w": 456,
+        "h": 98
+      },
+      "tilkobling": {
+        "x": 648,
+        "y": 89,
+        "w": 456,
+        "h": 98
+      },
+      "valgt": {
+        "x": 176,
+        "y": 203,
+        "w": 304,
+        "h": 103
+      },
+      "utstyrsstatus": {
+        "x": 496,
+        "y": 203,
+        "w": 608,
+        "h": 183
+      },
+      "hendelser": {
+        "x": 193,
+        "y": 512,
+        "w": 894,
+        "h": 150
+      }
+    },
+    "storageStatus": "Lagrer i utlaan-hendelser.csv (0 lagrede hendelser lest inn).",
+    "rejected": [],
+    "desktop": {
+      "scrollWidth": 1280,
+      "width": 1280
+    },
+    "phone": {
+      "scrollWidth": 390,
+      "width": 390
+    },
+    "phoneLayout": {
+      "lagring": {
+        "x": 16,
+        "y": 121,
+        "w": 358,
+        "h": 118
+      },
+      "tilkobling": {
+        "x": 16,
+        "y": 255,
+        "w": 358,
+        "h": 98
+      }
+    }
+  },
+  "phase2": {
+    "events": [
+      [
+        "8.11.2026, 11:10:40",
+        "fil",
+        "12",
+        "LAAN_UT",
+        "S001",
+        "Oscilloskop",
+        "UTLÅNT",
+        "0 av 1 ledig",
+        "OK"
+      ],
+      [
+        "8.11.2026, 11:10:40",
+        "fil",
+        "10",
+        "RETUR",
+        "S001",
+        "Multimeter",
+        "LEDIG",
+        "1 av 2 ledig",
+        "OK"
+      ],
+      [
+        "8.11.2026, 11:10:40",
+        "fil",
+        "4",
+        "LAAN_UT",
+        "S001",
+        "Multimeter",
+        "UTLÅNT",
+        "0 av 2 ledig",
+        "OK"
+      ],
+      [
+        "8.11.2026, 11:10:40",
+        "fil",
+        "3",
+        "LAAN_UT",
+        "S001",
+        "Multimeter",
+        "LEDIG",
+        "1 av 2 ledig",
+        "OK"
+      ]
+    ],
+    "storageStatus": "Lagrer i utlaan-hendelser.csv (4 lagrede hendelser lest inn)."
+  },
+  "errors": [],
+  "checks": {
+    "CSV: exactly the 4 successful loans/returns are stored (REQ-STO-01)": true,
+    "Page: only the 4 successful loans/returns are listed live, no FEIL (REQ-UI-01)": true,
+    "Reload + open file: the 4 stored rows come back as source 'fil' (REQ-STO-02)": true,
+    "Layout: Lagring and Tilkobling side by side (desktop)": true,
+    "Layout: Valgt på stasjonen and Utstyrsstatus side by side (desktop)": true,
+    "Layout: stacked and without horizontal scrolling at 390 px": true,
+    "Text: no code names (studentnummer, utstyr_navn, Lab_Utstyr) in headings or labels": true,
+    "No JS errors on the page": true
+  }
+}

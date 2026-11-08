@@ -21,8 +21,10 @@ Open **http://localhost:8000**, then:
 
 ## What is stored
 
-Every `LAAN_UT` and `RETUR`, both OK and FEIL. `START`, `VELG` and `STATUS` only update the page. One line per
-event: the time it was received, then the protocol line unchanged:
+Every **successful** `LAAN_UT` and `RETUR` (result OK); only these are listed on the page too. A failed attempt
+(FEIL, for example returning an item the student hasn't borrowed) is neither stored nor listed: the micro:bit shows
+it with ✗ and a low beep. FEIL rows in files from iteration 7 are left in the file and not shown. `START`, `VELG` and `STATUS`
+only update the page. One line per event: the time it was received, then the protocol line unchanged:
 
 ```
 mottatt,seq,event,studentnummer,utstyr_navn,state,result,antall_tilgjengelig,antall_totalt
@@ -40,7 +42,7 @@ The file is UTF-8. To open it in Excel, use *Data → From Text/CSV* and choose 
 |---|---|---|
 | `js/serial_link.js` | WebSerial: choose and open the port (115200 baud), read UTF-8 text, hand out complete lines (`LineBuffer`); send the status request | `LineBuffer`: `tests/js/line_buffer.test.mjs`; the connection: by hand |
 | `js/event_parser.js` | One protocol line → event object with the protocol's field names, or an error saying why; checks the counts; counts lines missing between two `seq` values | `tests/js/event_parser.test.mjs`, including the 16 golden lines |
-| `js/csv_format.js` | Which events are stored; event ↔ CSV line; reading a whole file | `tests/js/csv_format.test.mjs` |
+| `js/csv_format.js` | Which events are listed and which are stored; event ↔ CSV line; reading a whole file | `tests/js/csv_format.test.mjs` |
 | `js/csv_store.js` | File System Access: choose a new or existing file, read it, append lines one after another | by hand |
 | `js/dashboard_view.js` | Everything on the page: status, buttons, selection, item states, loans and returns, problems | by hand |
 | `js/main.js` | Wiring: file → page; on connect, the status request; line → parser → page, and → CSV for loans and returns | by hand |
@@ -52,5 +54,17 @@ dependencies.
 ## Tests
 
 ```bash
-node --test tests/js/        # in WSL, from the repository root
+node --test tests/js/        # in WSL or MSYS2, from the repository root
 ```
+
+The whole page can also be checked in headless Chrome or Edge, with a simulated micro:bit (the golden lines) and an
+in-memory CSV file in place of the port and file choosers. It checks what is stored, what is listed, the reload,
+the layout at desktop and phone width, and takes screenshots:
+
+```bash
+python3 dashboard/serve.py   # in another terminal
+node tests/browser/run.mjs "C:/Program Files/Google/Chrome/Application/chrome.exe" \
+     spec/serial-protocol-examples.txt tests/browser/results/<date>
+```
+
+The last run: [tests/browser/results/2026-11-08](../tests/browser/results/2026-11-08/) (8 of 8 checks pass).

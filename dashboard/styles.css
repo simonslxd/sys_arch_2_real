@@ -34,6 +34,21 @@ section {
 button { font: inherit; padding: 6px 12px; margin-right: 8px; cursor: pointer; }
 button:disabled { cursor: default; }
 
+/* Two sections side by side; stacked on narrow screens. */
+.rad { display: grid; gap: 16px; margin-bottom: 16px; }
+.rad > section { margin-bottom: 0; }
+.kontroll { grid-template-columns: 1fr 1fr; }
+.oversikt { grid-template-columns: minmax(200px, 1fr) 2fr; align-items: start; }
+@media (max-width: 720px) {
+  .kontroll, .oversikt { grid-template-columns: 1fr; }
+}
+
+/* Storage and connection: a compact bar, so the tables get the room. */
+.kontroll > section { padding: 8px 12px; }
+.kontroll h2 { font-size: 0.95rem; margin-bottom: 4px; }
+.kontroll .status { font-size: 0.9rem; margin: 0 0 6px; }
+.kontroll button { font-size: 0.9rem; padding: 3px 10px; }
+
 .status { font-weight: 600; }
 .status.tilkoblet { color: var(--ledig); }
 .status.feil { color: var(--feil); }

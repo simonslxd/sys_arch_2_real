@@ -3,8 +3,11 @@
 
     .venv/bin/python fom/benchmark_versions.py                 measure all versions, draw
     .venv/bin/python fom/benchmark_versions.py --chart-only    redraw from the saved CSV
+    .venv/bin/python fom/benchmark_versions.py --versions iter-6 iter-7 --worktree iter-8 \
+        --out fom/final/benchmark                              only these versions; the working
+                                                               tree's project/impl as "iter-8"
 
-(in WSL, from the repository root)
+(in WSL, or on Windows with MSYS2 and `python -X utf8`, decision D-18; from the repository root)
 
 The benchmark program (benchmarks/) exists only since iteration 6, but the code it measures,
 project/impl/, exists since iteration 1. So today's benchmark is built against each iteration's
@@ -13,22 +16,27 @@ in ROUNDS rounds, every version runs once per round, so a slow moment on the PC 
 versions alike. Each run already reports the median of 7 repetitions of 10 000 loan + return
 pairs (benchmarks/lending_benchmark.cpp).
 
-Writes:
+Writes (--out changes the "fom/benchmark-versions" part):
   fom/benchmark-versions.csv   every run's numbers, plus median, min and max per version
   fom/benchmark-versions.svg   the chart: median per version, with the min-max range of the runs
 """
+import argparse
 import csv
+import io
 import re
 import shutil
 import statistics
 import subprocess
-import sys
+import tarfile
 from pathlib import Path
+
+from measure_fom import windows_environment
 
 REPO = Path(__file__).resolve().parent.parent
 WORK = REPO / "build" / "bench-versions"
 CSV_OUT = REPO / "fom" / "benchmark-versions.csv"
 SVG_OUT = REPO / "fom" / "benchmark-versions.svg"
+WORKTREE = None    # the label of the working tree's project/impl, when --worktree is given
 ROUNDS = 5
 SIZES = [3, 100]   # students and items in the lab, as printed by the benchmark
 
@@ -48,7 +56,9 @@ def code_changed(versions):
     version before. Between unchanged neighbours, any difference in time is measurement noise."""
     changed = [versions[0]]
     for previous, tag in zip(versions, versions[1:]):
-        diff = subprocess.run(["git", "diff", "--quiet", previous, tag, "--",
+        # the working tree is compared by naming only the earlier version
+        revisions = [previous] if tag == WORKTREE else [previous, tag]
+        diff = subprocess.run(["git", "diff", "--quiet", *revisions, "--",
                                "project/impl/src", "project/impl/include"], cwd=REPO)
         if diff.returncode != 0:
             changed.append(tag)
@@ -56,14 +66,19 @@ def code_changed(versions):
 
 
 def build(tag):
-    """Today's benchmark, built (Release) against the project/impl of `tag`. Returns the program."""
+    """Today's benchmark, built (Release) against the project/impl of `tag` (or of the working
+    tree, for the --worktree label). Returns the program."""
     impl = WORK / tag / "src"
     if (WORK / tag).exists():
         shutil.rmtree(WORK / tag)
     impl.mkdir(parents=True)
-    archive = subprocess.run(["git", "archive", tag, "project/impl"], cwd=REPO, capture_output=True,
-                             check=True)
-    subprocess.run(["tar", "-x", "-C", str(impl)], input=archive.stdout, check=True)
+    if tag == WORKTREE:
+        shutil.copytree(REPO / "project" / "impl", impl / "project" / "impl")
+    else:
+        archive = subprocess.run(["git", "archive", tag, "project/impl"], cwd=REPO,
+                                 capture_output=True, check=True)
+        with tarfile.open(fileobj=io.BytesIO(archive.stdout)) as files:
+            files.extractall(impl, filter="data")
     build_dir = WORK / tag / "build"
     for cmd in (["cmake", "-S", str(REPO / "benchmarks"), "-B", str(build_dir),
                  f"-DLABUTLAAN_IMPL_DIR={impl / 'project' / 'impl'}"],
@@ -220,12 +235,31 @@ def read_csv():
 
 
 def main():
-    if "--chart-only" in sys.argv:   # redraw from the saved numbers, without measuring again
+    global CSV_OUT, SVG_OUT, WORKTREE
+    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    parser.add_argument("--chart-only", action="store_true",
+                        help="redraw the chart from the saved CSV, without measuring again")
+    parser.add_argument("--versions", nargs="+", metavar="TAG",
+                        help="the tags to benchmark (default: every iteration tag)")
+    parser.add_argument("--worktree", metavar="LABEL",
+                        help="also benchmark the working tree's project/impl, labelled LABEL")
+    parser.add_argument("--out", metavar="PATH",
+                        help="write PATH.csv and PATH.svg instead of fom/benchmark-versions.*")
+    args = parser.parse_args()
+    if args.out:
+        CSV_OUT, SVG_OUT = (REPO / f"{args.out}.csv"), (REPO / f"{args.out}.svg")
+        CSV_OUT.parent.mkdir(parents=True, exist_ok=True)
+    WORKTREE = args.worktree
+    windows_environment()
+
+    if args.chart_only:   # redraw from the saved numbers, without measuring again
         runs = read_csv()
         draw_svg(runs, code_changed(list(runs)))
         print(f"redrew {SVG_OUT.relative_to(REPO)} from {CSV_OUT.relative_to(REPO)}")
         return
-    versions = tagged_versions()
+    versions = args.versions or tagged_versions()
+    if WORKTREE:
+        versions.append(WORKTREE)
     print(f"benchmarking {', '.join(versions)} ({ROUNDS} rounds)", flush=True)
     runs = measure(versions)
     write_csv(runs)

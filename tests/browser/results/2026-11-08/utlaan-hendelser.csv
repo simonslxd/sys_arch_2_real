@@ -1,0 +1,5 @@
+mottatt,seq,event,studentnummer,utstyr_navn,state,result,antall_tilgjengelig,antall_totalt
+2026-11-08T10:10:40.026Z,3,LAAN_UT,S001,Multimeter,LEDIG,OK,1,2
+2026-11-08T10:10:40.102Z,4,LAAN_UT,S001,Multimeter,UTLÅNT,OK,0,2
+2026-11-08T10:10:40.474Z,10,RETUR,S001,Multimeter,LEDIG,OK,1,2
+2026-11-08T10:10:40.596Z,12,LAAN_UT,S001,Oscilloskop,UTLÅNT,OK,0,1

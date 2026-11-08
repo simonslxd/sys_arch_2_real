@@ -1,8 +1,11 @@
 # Final conformance report: micro:bit lab-lending IoT prototype
 
-Status after iteration 7 (2026-10-29). Repository: github.com/simonslxd/sys_arch_2_real, tags `iter-0` to `iter-7`.
+Status after iteration 8, the final iteration (2026-11-08). Repository: github.com/simonslxd/sys_arch_2_real, tags
+`iter-0` to `iter-7`; iteration 8 waits for the team's review before it is committed and tagged `iter-8`.
 Iteration 7 added one feature at the team's request: the dashboard shows "x av y ledig" for every item
-([specs/m7-equipment-counts.md](specs/m7-equipment-counts.md)).
+([specs/m7-equipment-counts.md](specs/m7-equipment-counts.md)). Iteration 8 made the dashboard cleaner and stores
+only successful loans and returns ([specs/m8-final-dashboard.md](specs/m8-final-dashboard.md)); it changed only
+`dashboard/`.
 
 ## 1. What was built
 
@@ -41,6 +44,10 @@ R = requirements verified. Every iteration's reports are archived in `fom/histor
 | 5 | CSV storage | 30.7 | 100.0 (50) | 89.5 | **73.4** | – |
 | 6 | benchmark, SRP review, this report | 30.7 | 100.0 (50) | 100.0 | **76.9** | 87 ns |
 | 7 | available counts on the dashboard | 29.8 | 100.0 (59) | 100.0 | **76.6** | 65 ns |
+| 8 | final dashboard: compact layout, only successful actions stored | 29.8 | 100.0 (61) | 100.0 (22 of 22) | **76.6** | 57 ns¹ |
+
+¹ Measured on Windows (decision D-18); iterations 6 and 7 were measured in WSL. The logged benchmark numbers of
+different sessions and systems are not comparable; the one-session comparison below is.
 
 The FoM is deterministic: two runs on the same code gave byte-identical reports (checked in iterations 1 and 2),
 and re-measuring the tagged code of iterations 0 and 1 reproduced their logged numbers. The benchmark (ns per loan
@@ -62,10 +69,33 @@ Numbers: [fom/benchmark-versions.csv](../../fom/benchmark-versions.csv).
   and the single slow runs (up to 114 ns), are measurement noise. That's also why the 87 ns in the FoM log for
   iteration 6, measured in another session, differs from the 66 ns median here.
 
-**What limits the FoM is A (30.7 %), and that comes from the diagrams, not the code** (section 4). Every drawn
+### The last three iterations (charts: iterations 1 to 3)
+
+The two charts number the last three iterations **1, 2 and 3** (team choice). They are the logged iterations 6, 7
+and 8 above (tags `iter-6`, `iter-7`, and iteration 8 not yet tagged).
+
+Both charts are drawn by `fom/final_charts.py` from [fom/fom-log.csv](../../fom/fom-log.csv) and
+[fom/final/benchmark.csv](../../fom/final/benchmark.csv). PNG copies for documents:
+[fom-chart.png](../../fom/final/fom-chart.png), [benchmark-chart.png](../../fom/final/benchmark-chart.png).
+
+![FoM, iterations 1 to 3](../../fom/final/fom-chart.svg)
+
+- **FoM 76.9 → 76.6 → 76.6 %.** The only change is in iteration 2: A fell from 30.7 to 29.8 % because the two
+  getters the counts need are not in the class diagram (DEV-17, 2 more Extra in the class report). Iteration 3
+  changed only the dashboard, so all three verifier reports are identical to iteration 2's. T and R stayed at
+  100 % (61 of 61 tests, 22 of 22 requirements).
+
+![Benchmark, iterations 1 to 3](../../fom/final/benchmark-chart.svg)
+
+- **Benchmark flat: 58 → 57 → 57 ns** (100 × 100 lab) and 26 ns throughout (3 × 3 lab), all three measured in one
+  session on 2026-11-08, alternating over 5 rounds. Iteration 2's getters are not called by `laan_ut` or
+  `registrer_retur`, and iteration 3 benchmarked the same domain code as iteration 2, so these differences are
+  measurement noise.
+
+**What limits the FoM is A (29.8 %), and that comes from the diagrams, not the code** (section 4). Every drawn
 element is implemented. Section 5 lists the draw.io changes that would remove most of the differences.
 
-## 3. Requirements: 21 of 21 verified
+## 3. Requirements: 22 of 22 verified
 
 Full table with the evidence for each: [specs/requirements.md](specs/requirements.md).
 
@@ -74,8 +104,9 @@ Full table with the evidence for each: [specs/requirements.md](specs/requirement
 | Hardware | REQ-HW-01 to 05 (buttons, tilt, LEDs, speaker) | Unit tests of `InputDecoder` and `StationController`; 2 recorded hardware runs, each **13 of 13** lines reproduced by replaying the board's inputs through the PC-tested code (`tests/hardware/replay_log`); LEDs and beeps observed by the tester |
 | Domain | REQ-DOM-01 to 03 | Verifier reports (section 4) + deviation log |
 | Communication | REQ-COM-01, 02 | Golden-lines contract test (C++ and JS); hardware logs; browser test |
-| Storage, UI | REQ-STO-01, 02, REQ-UI-01 | CSV tests; the browser test's file held exactly the 4 loans/returns given; reload showed the history |
-| Tests, verification | REQ-TST-01, 02, REQ-VER-01, 02 | 40 C++ + 19 JS tests; benchmark; deterministic verifier; 8 logged iterations |
+| Storage, UI | REQ-STO-01, 02, REQ-UI-01 | CSV tests; the browser test's file held exactly the 4 loans/returns given; reload showed the history. Iteration 8: [browser run](../../tests/browser/results/2026-11-08/result.json) with a simulated micro:bit, only the 4 OK of 6 loans/returns stored |
+| Layout (iteration 8) | REQ-UI-03 | Browser run: sections side by side on desktop, stacked at 390 px, no code names; [screenshot](../../tests/browser/results/2026-11-08/dashboard-desktop.png) |
+| Tests, verification | REQ-TST-01, 02, REQ-VER-01, 02 | 40 C++ + 21 JS tests; benchmark; deterministic verifier; 9 logged iterations (0–8) |
 | Counts (iteration 7) | REQ-UI-02, REQ-COM-03 | Golden `STATUS` lines (C++ and JS); `STATUS` answered over COM3; the browser test's CSV file: 11 of 11 count changes follow the rules |
 | Process | REQ-PRO-01, 02 | Tags on GitHub; [specs/srp-review.md](specs/srp-review.md) |
 
@@ -84,7 +115,14 @@ Full table with the evidence for each: [specs/requirements.md](specs/requirement
   reports are below 100 % (section 4).
 - REQ-HW-04, REQ-HW-05, REQ-COM-02, REQ-STO-02 and REQ-UI-01 rest on the tester's observation, without a recording.
 - REQ-STO-01 and REQ-UI-01 were **changed by the team** during M5: only `LAAN_UT`/`RETUR` (OK and FEIL) are stored
-  and listed, with event names only. The old wording is kept in the table.
+  and listed, with event names only; and again in M8: **only OK is stored and listed**.
+  The old wording is kept in the table.
+- The M8 evidence for REQ-STO-01, REQ-UI-01 and REQ-UI-03 is a browser run with a **simulated** micro:bit (the
+  golden lines) and an in-memory file, plus two board tests (2026-11-08, COM3). In the first, the saved
+  [file](../../tests/hardware/logs/2026-11-08-dashboard-m8-board.csv) held 12 rows, all OK, but the page still
+  listed failed attempts (not stored); the team read them as tracked, so they are no longer listed either. The
+  second board test, with that change, passed (tester: "works";
+  [file](../../tests/hardware/logs/2026-11-08-dashboard-m8-board-2.csv): only OK rows).
 
 ## 4. Conformance with the UML models
 
@@ -154,8 +192,11 @@ verifier change or a different C++ type for `mine_laan`, which is a decision for
    `int` → `bool` conversion (`!= 0`, same behaviour) and was not re-run on the board.
 4. **A correction:** the M3 report claimed 0 firmware warnings; there were 2, as explained in
    [specs/m3-firmware.md](specs/m3-firmware.md). Both are now fixed.
-5. **The benchmark depends on the machine** (65–116 ns on one PC).
+5. **The benchmark depends on the machine and the system** (65–116 ns on one PC in WSL; 57–64 ns on native
+   Windows), so iterations are only compared within one session.
 6. **Some evidence is the tester's observation** and was not recorded (section 3).
+7. **WSL was removed from the PC before iteration 8.** The measurements now run on native Windows with MSYS2
+   (D-18). This was checked first: iteration 7's tagged code gave the same FoM and byte-identical reports.
 
 ## 7. How the AI-generated code was kept honest
 
@@ -170,11 +211,21 @@ verifier change or a different C++ type for `mine_laan`, which is a decision for
    decision (D-01 to D-17) has an ID. Every iteration is a tagged commit, with its reports archived.
 6. **Human gates:** the team approved each milestone before it was committed and pushed.
 
-## 8. Reproduce it (in WSL, from the repository root)
+## 8. Reproduce it (in WSL, from the repository root; for native Windows see below)
 
 ```bash
 .venv/bin/python fom/measure_fom.py            # verifier + C++ and JS tests + requirements + benchmark
 bash firmware/build.sh                         # build/MICROBIT.hex, then copy it onto the MICROBIT drive
 python3 dashboard/serve.py                     # then open http://localhost:8000 in Chrome or Edge
 git checkout iter-N                            # any earlier iteration
+```
+
+Native Windows (D-18), in Git Bash with MSYS2 installed (`pacman -S mingw-w64-x86_64-{cmake,ninja,clang-libs,python-pip}
+mingw-w64-ucrt-x86_64-nodejs`; `.venv` from `/c/msys64/mingw64/bin/python -m venv .venv` + `pip install clang`):
+
+```bash
+export PATH=/c/msys64/mingw64/bin:$PATH:/c/msys64/ucrt64/bin
+.venv/bin/python -X utf8 fom/measure_fom.py
+.venv/bin/python -X utf8 fom/benchmark_versions.py --versions iter-6 iter-7 --worktree iter-8 --out fom/final/benchmark
+.venv/bin/python -X utf8 fom/final_charts.py
 ```

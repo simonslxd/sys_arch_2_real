@@ -10,7 +10,8 @@ FoM = (A + T + R) / 3, every part in percent:
   T  test pass rate        passed unit tests / all unit tests (C++ and JS)
   R  requirement coverage  requirements marked Verified / all requirements
 
-The same commit always gives the same A, T and R. Run it in WSL (decision D-01).
+The same commit always gives the same A, T and R. Run it in WSL (decision D-01), or on native
+Windows with MSYS2 MinGW-w64 (decision D-18: same numbers; see windows_environment()).
 
 The input diagrams don't have the names the verifier expects (deviation DEV-01), and they
 must not be edited. So the script copies them byte for byte, under the expected names, into
@@ -55,6 +56,26 @@ DIAGRAM_COPIES = {
 REPORTS = ["class-report.md", "state-lab_utstyr-report.md", "sequence-laan_ut-report.md"]
 
 LOG_COLUMNS = ["iteration", "date", "commit", "A", "T", "R", "FoM", "bench_ns"]
+
+WINDOWS_TOOLCHAIN = REPO / "fom" / "windows" / "toolchain.cmake"
+
+
+def windows_environment():
+    """On native Windows (MSYS2 MinGW-w64, decision D-18), set up os.environ so that every
+    build and the verifier behave as in WSL. Does nothing elsewhere.
+
+    CMake uses Ninja and fom/windows/toolchain.cmake: programs get no ".exe" suffix (the
+    verifier looks for "scenario_<name>") and no ".text" section symbols (they hide functions
+    from the verifier's nm lookup). Requires MSYS2's mingw64/bin (g++, cmake, ninja, nm,
+    objcopy, libclang.dll) and node on PATH.
+    """
+    if os.name != "nt":
+        return
+    if not sys.flags.utf8_mode:   # the outputs contain UTF-8 ("UTLÅNT"); Windows defaults to cp1252
+        sys.exit("On Windows, run this with Python's UTF-8 mode: python -X utf8 " + sys.argv[0])
+    os.environ["PYTHONUTF8"] = "1"   # the verifier, run as a child process, too
+    os.environ.setdefault("CMAKE_GENERATOR", "Ninja")
+    os.environ["CMAKE_TOOLCHAIN_FILE"] = WINDOWS_TOOLCHAIN.as_posix()
 
 
 def prepare_verify_project():
@@ -123,11 +144,13 @@ def cpp_tests():
 
 def js_tests():
     """(passed, total, output) of the JS tests in tests/js/, run with Node's built-in test
-    runner. No tests, or no Node, count as 0 of 0."""
+    runner. No tests, or no Node, count as 0 of 0. The TAP reporter is named explicitly: newer
+    Node versions print the "spec" format by default, without the "# pass" summary lines."""
     if not (REPO / "tests" / "js").is_dir():
         return 0, 0, "No JS tests yet.\n"
     try:
-        run = subprocess.run(["node", "--test", "tests/js/"], cwd=REPO, capture_output=True, text=True)
+        run = subprocess.run(["node", "--test", "--test-reporter=tap", "tests/js/"], cwd=REPO,
+                             capture_output=True, text=True, encoding="utf-8")
     except FileNotFoundError:
         return 0, 0, "Node is not installed.\n"
     passed = re.search(r"^# pass (\d+)$", run.stdout, re.M)
@@ -247,6 +270,7 @@ def main():
                         help="log the result as this iteration (fom-log.csv, history/, PROGRESS.md)")
     args = parser.parse_args()
 
+    windows_environment()
     prepare_verify_project()
     run_verifier()
 

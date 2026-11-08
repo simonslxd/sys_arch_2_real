@@ -1,10 +1,10 @@
 // Wires the dashboard together and keeps the session's state (connected or not, the last seq):
 //   CSV file    -> stored loans and returns -> page
 //   connect     -> send the status request; each STATUS answer -> that item's row on the page
-//   serial line -> parsed event -> selection and item state on the page; a loan or return is
-//                  also written to the CSV file (with the time it arrived) and listed
-// The rules themselves live in the tested modules: what is stored (csv_format.isLogged), what a
-// line means (event_parser), and when lines are missing (event_parser.missingLines).
+//   serial line -> parsed event -> selection and item state on the page; a successful loan or
+//                  return is also written to the CSV file (with the time it arrived) and listed
+// The rules themselves live in the tested modules: what is stored and listed (csv_format.isLogged),
+// what a line means (event_parser), and when lines are missing (event_parser.missingLines).
 import { isLogged, toCsvRow } from "./csv_format.js";
 import { CsvStore, isFileAccessSupported } from "./csv_store.js";
 import { missingLines, parseEventLine } from "./event_parser.js";
@@ -31,10 +31,12 @@ function showOnPage(event, mottatt, source) {
 async function useFile(choose) {
   try {
     const { rows, rejected } = await choose();
+    // Files from iteration 7 can hold failed attempts (FEIL); they are left in the file, not shown.
+    const successful = rows.filter(isLogged);
     view.clearEvents();
-    rows.forEach((row) => showOnPage(row, row.mottatt, "fil"));
+    successful.forEach((row) => showOnPage(row, row.mottatt, "fil"));
     rejected.forEach((bad) => view.showRejectedLine(bad.line, `CSV-linje ${bad.lineNumber}: ${bad.reason}`));
-    view.showStorageStatus(`Lagrer i ${store.fileName} (${rows.length} lagrede hendelser lest inn).`, "tilkoblet");
+    view.showStorageStatus(`Lagrer i ${store.fileName} (${successful.length} lagrede hendelser lest inn).`, "tilkoblet");
   } catch (error) {
     if (error.name !== "AbortError") {   // AbortError: the user closed the file dialog
       view.showStorageStatus(`Kunne ikke bruke filen: ${error.message}`, "feil");

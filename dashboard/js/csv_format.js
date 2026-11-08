@@ -17,12 +17,14 @@ export const CSV_HEADER = "mottatt,seq,event,studentnummer,utstyr_navn,state,res
 // (team decision 2026-10-29), with a message that says what to do.
 const OLD_CSV_HEADER = "mottatt,seq,event,studentnummer,utstyr_navn,state,result";
 
-// Only loans and returns are logged, both OK and FEIL; START, VELG and STATUS are not (team
-// decision, REQ-STO-01).
+// Only successful loans and returns (result OK) are stored and listed. A failed attempt (FEIL, for
+// example returning an item the student hasn't borrowed) is neither stored nor listed: the
+// station shows it with ✗ and a low beep. START, VELG and STATUS only update the page (team
+// decision 2026-11-08, REQ-STO-01, REQ-UI-01).
 export const LOGGED_EVENTS = ["LAAN_UT", "RETUR"];
 
 export function isLogged(event) {
-  return LOGGED_EVENTS.includes(event.event);
+  return LOGGED_EVENTS.includes(event.event) && event.result === "OK";
 }
 
 export function toCsvRow(event, mottatt) {

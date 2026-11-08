@@ -13,43 +13,47 @@
   </header>
 
   <main>
-    <section>
-      <h2>1. Lagring (CSV-fil)</h2>
-      <p id="lagring-status" class="status frakoblet">Ingen fil valgt. Velg en fil før du kobler til, så lagres alle hendelser.</p>
-      <button id="ny-fil" type="button">Ny CSV-fil</button>
-      <button id="apne-fil" type="button">Åpne CSV-fil</button>
-    </section>
+    <div class="rad kontroll">
+      <section>
+        <h2>1. Lagring (CSV-fil)</h2>
+        <p id="lagring-status" class="status frakoblet">Ingen fil valgt. Velg en fil før du kobler til.</p>
+        <button id="ny-fil" type="button">Ny CSV-fil</button>
+        <button id="apne-fil" type="button">Åpne CSV-fil</button>
+      </section>
 
-    <section>
-      <h2>2. Tilkobling</h2>
-      <p id="status" class="status frakoblet">Frakoblet.</p>
-      <button id="koble-til" type="button" disabled>Koble til micro:bit</button>
-      <button id="koble-fra" type="button" disabled>Koble fra</button>
-    </section>
+      <section>
+        <h2>2. Tilkobling</h2>
+        <p id="status" class="status frakoblet">Frakoblet.</p>
+        <button id="koble-til" type="button" disabled>Koble til micro:bit</button>
+        <button id="koble-fra" type="button" disabled>Koble fra</button>
+      </section>
+    </div>
 
-    <section>
-      <h2>Valgt på stasjonen</h2>
-      <dl class="valg">
-        <dt>Student (<code>studentnummer</code>)</dt><dd id="valgt-student">–</dd>
-        <dt>Utstyr (<code>utstyr_navn</code>)</dt><dd id="valgt-utstyr">–</dd>
-      </dl>
-    </section>
+    <div class="rad oversikt">
+      <section>
+        <h2>Valgt på stasjonen</h2>
+        <dl class="valg">
+          <dt>Student</dt><dd id="valgt-student">–</dd>
+          <dt>Utstyr</dt><dd id="valgt-utstyr">–</dd>
+        </dl>
+      </section>
 
-    <section>
-      <h2>Utstyrsstatus (<code>Lab_Utstyr</code>)</h2>
-      <table id="utstyrsstatus">
-        <thead><tr><th><code>utstyr_navn</code></th><th>Ledig</th><th>Tilstand</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </section>
+      <section>
+        <h2>Utstyrsstatus</h2>
+        <table id="utstyrsstatus">
+          <thead><tr><th>Utstyr</th><th>Ledig</th><th>Tilstand</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </div>
 
     <section>
       <h2>Utlån og returer (nyeste først)</h2>
-      <p>Alle forsøk på <code>LAAN_UT</code> og <code>RETUR</code>, både OK og FEIL. Kilde <em>fil</em>: lagret historikk lest fra CSV-filen. Kilde <em>live</em>: mottatt fra micro:bit nå, og lagt til i filen.</p>
+      <p>Bare vellykkede utlån og returer vises og lagres i CSV-filen. Mislykkede forsøk lagres ikke; micro:bit viser dem med ✗ og et lavt pip. Kilde <em>fil</em>: lest fra CSV-filen. Kilde <em>live</em>: mottatt fra micro:bit nå.</p>
       <div class="rull">
         <table id="hendelser">
           <thead>
-            <tr><th>Mottatt</th><th>Kilde</th><th>seq</th><th>Hendelse</th><th><code>studentnummer</code></th><th><code>utstyr_navn</code></th><th>Tilstand</th><th>Ledig</th><th>Resultat</th></tr>
+            <tr><th>Mottatt</th><th>Kilde</th><th>seq</th><th>Hendelse</th><th>Student</th><th>Utstyr</th><th>Tilstand</th><th>Ledig</th><th>Resultat</th></tr>
           </thead>
           <tbody></tbody>
         </table>

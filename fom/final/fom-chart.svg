@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 562" width="760" height="562" role="img" aria-labelledby="t d" class="viz">
+<style>
+  .viz { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781; --grid:#e1e0d9;
+         --axis:#c3c2b7; --s1:#2a78d6; --s2:#eb6834; font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
+  @media (prefers-color-scheme: dark) {
+    .viz { --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#898781; --grid:#2c2c2a;
+           --axis:#383835; --s1:#3987e5; --s2:#d95926; }
+  }
+  .bg { fill:var(--surface); }
+  .title { fill:var(--ink); font-size:17px; font-weight:600; }
+  .sub, .label { fill:var(--ink2); font-size:13px; }
+  .value { fill:var(--ink); font-size:13px; font-weight:600; font-variant-numeric:tabular-nums; }
+  .tick { fill:var(--muted); font-size:12px; font-variant-numeric:tabular-nums; }
+  .xlab { fill:var(--ink2); font-size:13px; font-weight:600; }
+  .th { fill:var(--ink2); font-size:12px; font-weight:600; }
+  .td { fill:var(--ink); font-size:12px; font-variant-numeric:tabular-nums; }
+  .rule { stroke:var(--grid); stroke-width:1; }
+  .grid { stroke:var(--grid); stroke-width:1; }
+  .axis { stroke:var(--axis); stroke-width:1; }
+  .line { fill:none; stroke-width:2; stroke-linejoin:round; stroke-linecap:round; }
+  .range { stroke-width:2; stroke-linecap:round; opacity:.45; }
+  .dot { stroke:var(--surface); stroke-width:2; }
+  .s1 { stroke:var(--s1); } .s2 { stroke:var(--s2); }
+  .f1 { fill:var(--s1); } .f2 { fill:var(--s2); }
+  .hit { fill:transparent; stroke:none; }
+</style>
+<title id="t">Figure of Merit, iterations 1 to 3</title>
+<desc id="d">FoM and its model-alignment part A for iterations 1, 2 and 3 (the last three iterations), from fom/fom-log.csv.</desc>
+<rect class="bg" width="760" height="562"/>
+<text class="title" x="64" y="30">Figure of Merit, iterations 1 to 3</text>
+<text class="sub" x="64" y="50">FoM = (A + T + R) / 3, in %. Higher is better.</text>
+<line class="line s1" x1="64" y1="73" x2="82" y2="73"/><circle class="dot f1" cx="73" cy="73" r="4"/><text class="label" x="90" y="77">FoM</text>
+<line class="line s2" x1="334" y1="73" x2="352" y2="73"/><circle class="dot f2" cx="343" cy="73" r="4"/><text class="label" x="360" y="77">A: model alignment (UML verifier)</text>
+<line class="grid" x1="64" y1="354.0" x2="590" y2="354.0"/><text class="tick" x="56" y="358.0" text-anchor="end">0</text>
+<line class="grid" x1="64" y1="304.0" x2="590" y2="304.0"/><text class="tick" x="56" y="308.0" text-anchor="end">20</text>
+<line class="grid" x1="64" y1="254.0" x2="590" y2="254.0"/><text class="tick" x="56" y="258.0" text-anchor="end">40</text>
+<line class="grid" x1="64" y1="204.0" x2="590" y2="204.0"/><text class="tick" x="56" y="208.0" text-anchor="end">60</text>
+<line class="grid" x1="64" y1="154.0" x2="590" y2="154.0"/><text class="tick" x="56" y="158.0" text-anchor="end">80</text>
+<line class="grid" x1="64" y1="104.0" x2="590" y2="104.0"/><text class="tick" x="56" y="108.0" text-anchor="end">100</text>
+<text class="tick" x="56" y="92" text-anchor="end">%</text>
+<line class="axis" x1="64" y1="354.0" x2="590" y2="354.0"/>
+<text class="xlab" x="151.7" y="376.0" text-anchor="middle">Iteration 1</text><text class="tick" x="151.7" y="392.0" text-anchor="middle">benchmark, SRP review</text>
+<text class="xlab" x="327.0" y="376.0" text-anchor="middle">Iteration 2</text><text class="tick" x="327.0" y="392.0" text-anchor="middle">“x av y ledig” counts</text>
+<text class="xlab" x="502.3" y="376.0" text-anchor="middle">Iteration 3</text><text class="tick" x="502.3" y="392.0" text-anchor="middle">final dashboard</text>
+<polyline class="line s1" points="151.7,161.8 327.0,162.5 502.3,162.5"/>
+<g><title>Iteration 1, FoM: 76.9 %</title><circle class="hit" cx="151.7" cy="161.8" r="12"/><circle class="dot f1" cx="151.7" cy="161.8" r="5"/></g>
+<g><title>Iteration 2, FoM: 76.6 %</title><circle class="hit" cx="327.0" cy="162.5" r="12"/><circle class="dot f1" cx="327.0" cy="162.5" r="5"/></g>
+<g><title>Iteration 3, FoM: 76.6 %</title><circle class="hit" cx="502.3" cy="162.5" r="12"/><circle class="dot f1" cx="502.3" cy="162.5" r="5"/></g>
+<polyline class="line s2" points="151.7,277.2 327.0,279.5 502.3,279.5"/>
+<g><title>Iteration 1, A: model alignment (UML verifier): 30.7 %</title><circle class="hit" cx="151.7" cy="277.2" r="12"/><circle class="dot f2" cx="151.7" cy="277.2" r="5"/></g>
+<g><title>Iteration 2, A: model alignment (UML verifier): 29.8 %</title><circle class="hit" cx="327.0" cy="279.5" r="12"/><circle class="dot f2" cx="327.0" cy="279.5" r="5"/></g>
+<g><title>Iteration 3, A: model alignment (UML verifier): 29.8 %</title><circle class="hit" cx="502.3" cy="279.5" r="12"/><circle class="dot f2" cx="502.3" cy="279.5" r="5"/></g>
+<text class="value" x="518.3" y="166.5">FoM: 76.6 %</text>
+<text class="value" x="518.3" y="283.5">A: 29.8 %</text>
+<line class="rule" x1="64" y1="400" x2="736" y2="400"/>
+<text class="th" x="64" y="416">Iteration</text>
+<text class="th" x="214" y="416">FoM</text>
+<text class="th" x="352" y="416">A (UML reports)</text>
+<text class="th" x="490" y="416">T (tests)</text>
+<text class="th" x="628" y="416">R (requirements)</text>
+<text class="td" x="64" y="438">1  (2026-10-28)</text>
+<text class="td" x="214" y="438">76.9 %</text>
+<text class="td" x="352" y="438">30.7 %</text>
+<text class="td" x="490" y="438">100.0 %</text>
+<text class="td" x="628" y="438">100.0 %</text>
+<text class="td" x="64" y="460">2  (2026-10-29)</text>
+<text class="td" x="214" y="460">76.6 %</text>
+<text class="td" x="352" y="460">29.8 %</text>
+<text class="td" x="490" y="460">100.0 %</text>
+<text class="td" x="628" y="460">100.0 %</text>
+<text class="td" x="64" y="482">3  (2026-11-08)</text>
+<text class="td" x="214" y="482">76.6 %</text>
+<text class="td" x="352" y="482">29.8 %</text>
+<text class="td" x="490" y="482">100.0 %</text>
+<text class="td" x="628" y="482">100.0 %</text>
+<text class="sub" x="64" y="518">FoM 76.9 % → 76.6 % (-0.3 points). A fell in iteration 2: two getters for the counts are not in the class diagram (DEV-17).</text>
+<text class="sub" x="64" y="538">Iteration 3 changed only the dashboard, so all three reports are unchanged. T and R stayed at 100 %.</text>
+</svg>

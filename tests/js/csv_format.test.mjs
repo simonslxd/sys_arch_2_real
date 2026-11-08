@@ -69,9 +69,22 @@ test("Reading: Windows line ends (\\r\\n) are accepted", () => {
   assert.equal(parseCsv(text).rows.length, 1);
 });
 
-test("Logging: every LAAN_UT and RETUR is logged, OK and FEIL; START, VELG and STATUS are not", () => {
+test("Logging: only successful LAAN_UT and RETUR are stored and listed; FEIL, START, VELG and STATUS are not", () => {
   const logged = goldenLines.map(parseEventLine).filter(isLogged);
   assert.deepEqual(logged.map((event) => `${event.event} ${event.result}`), [
-    "LAAN_UT OK", "LAAN_UT OK", "LAAN_UT FEIL", "RETUR FEIL", "RETUR OK", "LAAN_UT OK",
+    "LAAN_UT OK", "LAAN_UT OK", "RETUR OK", "LAAN_UT OK",
   ]);
+});
+
+test("Logging: a failed return (the student has not borrowed the item) and a failed loan are not stored", () => {
+  assert.equal(isLogged(parseEventLine("9,RETUR,S001,Multimeter,LEDIG,FEIL,2,2")), false);
+  assert.equal(isLogged(parseEventLine("3,LAAN_UT,S001,Multimeter,UTLÅNT,FEIL,0,2")), false);
+});
+
+test("Reading: an iteration-7 file's FEIL rows are read, and isLogged leaves them out of the page", () => {
+  const file = readFileSync(new URL("../hardware/logs/2026-10-29-dashboard-m7.csv", import.meta.url), "utf8");
+  const { rows } = parseCsv(file);
+  const shown = rows.filter(isLogged);
+  assert.ok(rows.some((row) => row.result === "FEIL"));
+  assert.ok(shown.length > 0 && shown.every((row) => row.result === "OK"));
 });
